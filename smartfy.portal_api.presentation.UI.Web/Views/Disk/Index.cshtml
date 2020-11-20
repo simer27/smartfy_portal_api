@@ -1,0 +1,26 @@
+﻿<fieldset class="fieldset">
+    <legend>Listagem de Câmeras</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Disk/List"
+                   data-cols="name,length,dock"
+                   data-what="Listagem de Câmeras"
+                   data-delete-url="/Disk/Delete"
+                   data-create-url="/Disk/Create"
+                   data-edit-url="/Disk/Edit">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Tamanho/Gb</th>
+                        <th>Dockstation</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

@@ -1,0 +1,24 @@
+﻿<fieldset class="fieldset">
+    <legend>Listagem de Áreas</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Area/List"
+                   data-cols="name"
+                   data-what="Listagem de Áreas"
+                   data-delete-url="/Area/Delete"
+                   data-create-url="/Area/Create"
+                   data-edit-url="/Area/Edit">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

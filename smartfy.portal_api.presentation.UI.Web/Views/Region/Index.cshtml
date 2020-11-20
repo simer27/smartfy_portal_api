@@ -1,0 +1,24 @@
+﻿<fieldset class="fieldset">
+    <legend>Listagem de Regiões</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Region/List"
+                   data-cols="name"
+                   data-what="Listagem de Regiões"
+                   data-delete-url="/Region/Delete"
+                   data-create-url="/Region/Create"
+                   data-edit-url="/Region/Edit">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

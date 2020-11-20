@@ -1,0 +1,241 @@
+﻿@using smartfy.portal_api.presentation.UI.Web.Helpers
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="SmartFy">
+    <title>Dashboard PWC</title>
+    <!-- Custom fonts for this template-->
+
+    <link href="~/css/coreui/coreui.css" rel="stylesheet">
+    <link href="~/css/coreui/coreui-chartjs.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/css/select2.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.css" />
+    <link href="~/css/site.css" rel="stylesheet">
+</head>
+
+<body id="page-top" class="c-app c-dark-theme">
+    <!-- loading modal -->
+    <div id="modalLoading" style="display: none">
+        <div class="loading-modal text-center">
+            <div class="loading-image">
+                <img src="~/images/ajax-loader-1.gif" />
+            </div>
+        </div>
+    </div>
+    <!---->
+    <!-- Modal mensagens -->
+    <div id='ModalMensagem' class='modal fade' tabindex='-1' role='dialog' aria-labelledby='ModalTitulo'>
+        <div class='modal-dialog' role='document'>
+            <div class='modal-content'>
+                <div class='modal-header' id="ModalHeader">
+                    <h5 class='modal-body' id="ModalTitulo"></h5>
+                    <button class="close" type="button" data-dismiss="modal">
+                    </button>
+                </div>
+                <div class='modal-body' id="ModalBody">
+                </div>
+                <div class='modal-footer' id="ModalFooter">
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="modalDocumentoInvalido" class="modal" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-body">CPF ou CNS Inválido.</h5>
+                    <button type="button" class="close" data-dismiss="modal">
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <p>Número de CPF ou CNS Inválido.</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Ok</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="logoutModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                    </button>
+                </div>
+                <div class="modal-body">Select "Logout" below if you are ready to end your current session.</div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">Cancel</button>
+                    <a class="btn btn-primary" href="login.html">Logout</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="c-sidebar c-sidebar-dark c-sidebar-fixed c-sidebar-lg-show" id="sidebar">
+        <div class="c-sidebar-brand d-lg-down-none bg-transparent">
+            <img src="~/images/logo_800.png" width="156" alt="PowerConn" />
+        </div>
+        <ul class="c-sidebar-nav">
+            @if (!SignInManager.IsSignedIn(User))
+            {
+                <li class="c-sidebar-nav-title">Access</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="DashBoard" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
+                        </svg> Dashboard
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="DashBoard" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
+                        </svg> Dashboard
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-title">Administração</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
+                        </svg> Home
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-title">Parceiras</li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Partner" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-industry"></use>
+                        </svg> Parceiras
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Area" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-satelite"></use>
+                        </svg> Areas
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Region" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-map"></use>
+                        </svg> Regiões
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item">
+                    <a class="c-sidebar-nav-link" asp-controller="Team" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-people"></use>
+                        </svg> Equipes
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-divider"></li>
+                <li class="c-sidebar-nav-title">Equipamentos</li>
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link" asp-controller="Camera" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-camera"></use>
+                        </svg> Cameras
+                    </a>
+                </li>
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link" asp-controller="Disk" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-folder"></use>
+                        </svg> Discos
+                    </a>
+                </li>
+                @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                        <a class="c-sidebar-nav-link" asp-controller="File" asp-action="Index">
+                            <svg class="c-sidebar-nav-icon">
+                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-file"></use>
+                            </svg> Arquivos
+                        </a>
+                    </li>*@
+                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
+                    <a class="c-sidebar-nav-link" asp-controller="Dockstation" asp-action="Index">
+                        <svg class="c-sidebar-nav-icon">
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-clipboard"></use>
+                        </svg> Dockstations
+                    </a>
+                </li>
+            }
+        </ul>
+        <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
+    </div>
+    <div class="c-wrapper c-fixed-components">
+        <header class="c-header c-header-light c-header-fixed c-header-with-subheader">
+            <button class="c-header-toggler c-class-toggler d-lg-none mfe-auto" type="button" data-target="#sidebar" data-class="c-sidebar-show">
+                <svg class="c-icon c-icon-lg">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-menu"></use>
+                </svg>
+            </button><a class="c-header-brand d-lg-none" href="#">
+                <svg width="118" height="46" alt="CoreUI Logo">
+                    <use xlink:href="/css/coreui/assets/brand/coreui.svg#full"></use>
+                </svg>
+            </a>
+            <button class="c-header-toggler c-class-toggler mfs-3 d-md-down-none" type="button" data-target="#sidebar" data-class="c-sidebar-lg-show" responsive="true">
+                <svg class="c-icon c-icon-lg" style="height: 56px;">
+                    <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-menu"></use>
+                </svg>
+            </button>
+            @*<vc:menu-usuario></vc:menu-usuario>*@
+            <div class="c-subheader px-3">
+                <!-- Breadcrumb-->
+                <ol class="breadcrumb border-0 m-0">
+                    <li class="breadcrumb-item">Home</li>
+                    <li class="breadcrumb-item"><a href="#">Admin</a></li>
+                    <li class="breadcrumb-item active">Dashboard</li>
+                    <!-- Breadcrumb Menu-->
+                </ol>
+            </div>
+        </header>
+        <div class="c-body">
+            <main class="c-main">
+                <div class="container-fluid">
+                    @RenderBody()
+                </div>
+            </main>
+            <footer class="c-footer">
+                <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
+                <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+            </footer>
+        </div>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <!-- CoreUI and necessary plugins-->
+    <script src="~/css/coreui/vendors/@@coreui/coreui/js/coreui.bundle.min.js"></script>
+    <!--[if IE]><!-->
+    <script src="~/css/coreui/vendors/@@coreui/icons/js/svgxuse.min.js"></script>
+    <!--<![endif]-->
+    <!-- Plugins and scripts required by this view-->
+    <script src="~/css/coreui/vendors/@@coreui/chartjs/js/coreui-chartjs.bundle.js"></script>
+    <script src="~/css/coreui/vendors/@@coreui/utils/js/coreui-utils.js"></script>
+    <script src="js/main.js"></script>
+    <script src="~/js/site.js"></script>
+
+    <script src='https://kit.fontawesome.com/a076d05399.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.0.12/dist/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.2/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.10/jquery.mask.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/bs4/jszip-2.5.0/dt-1.10.20/af-2.3.4/b-1.6.1/b-colvis-1.6.1/b-html5-1.6.1/b-print-1.6.1/cr-1.5.2/fc-3.3.0/fh-3.1.6/kt-2.5.1/r-2.2.3/rg-1.1.1/rr-1.2.6/sl-1.3.1/datatables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.20/js/dataTables.bootstrap4.min.js"></script>
+    @RenderSection("Scripts", required: false)
+    @Html.Raw(ModalHelper.GetModal())
+    @ModalHelper.ClearModal()
+</body>
+</html>

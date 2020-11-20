@@ -1,0 +1,27 @@
+﻿<fieldset class="fieldset">
+    <legend>Listagem de Câmeras</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Camera/List"
+                   data-cols="code,model,manufacturer,team"
+                   data-what="Listagem de Câmeras"
+                   data-delete-url="/Camera/Delete"
+                   data-create-url="/Camera/Create"
+                   data-edit-url="/Camera/Edit">
+                <thead>
+                    <tr>
+                        <th>Número Serial</th>
+                        <th>Modelo</th>
+                        <th>Fabricante</th>
+                        <th>Equipe</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

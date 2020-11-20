@@ -1,0 +1,25 @@
+﻿<fieldset class="fieldset">
+    <legend>Listagem de Dockstation</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Dockstation/List"
+                   data-cols="name,partner"
+                   data-what="Listagem de Regiões"
+                   data-delete-url="/Dockstation/Delete"
+                   data-create-url="/Dockstation/Create"
+                   data-edit-url="/Dockstation/Edit">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Parceiros</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

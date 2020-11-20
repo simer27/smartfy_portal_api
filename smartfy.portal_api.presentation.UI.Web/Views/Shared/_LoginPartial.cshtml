@@ -1,0 +1,40 @@
+﻿
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+<div class="sidebar-heading mt-2">
+    Meu portal <br />
+    <small>Conta:</small>
+</div>
+
+@if (SignInManager.IsSignedIn(User))
+{
+    <li class="nav-item">
+        <form asp-area=""
+              asp-controller="Account"
+              asp-action="Logout"
+              method="post"
+              id="logoutForm">
+            <button type="submit" class="navbar-right btn btn-link navbar-btn navbar-link">
+                <i class="fas fa-fw fa-door-open"></i>
+                <span style="color: white;">Sair</span>
+            </button>
+        </form>
+    </li>
+}
+else
+{
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="Login">
+            <i class="fas fa-fw fa-door-open"></i>
+            <span>Entrar</span>
+        </a>
+    </li>
+
+    <li class="nav-item">
+        <a class="nav-link" asp-controller="Account" asp-action="Register">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Cadastrar-se</span>
+        </a>
+    </li>
+}

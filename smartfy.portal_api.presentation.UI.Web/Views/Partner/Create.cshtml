@@ -1,0 +1,60 @@
+﻿@model smartfy.portal_api.domain.Entities.Partner
+
+@{
+    ViewData["Title"] = "Cadastro de Empresas Parceiras";
+}
+
+<h4>Novo Registro</h4>
+
+<form asp-action="Create" id="myform">
+
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="card-title"><h6>Informações Básicas</h6></div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="control-label">Nome</label>
+                                <input asp-for="Name" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Name" class="text-danger"></span>
+
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="control-label">Email</label>
+                                <input asp-for="Email" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Email" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label class="control-label">Contato</label>
+                                <input asp-for="Contact" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Contact" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-4 mt-3">
+            <input type="submit" value="Cadastrar" class="btn btn-outline-success btn-sm w-150" /> |
+            <a class="btn btn-outline-secondary btn-sm w-150" asp-action="Index">Voltar</a>
+        </div>
+
+    </div>
+
+</form>
+
+@section Scripts{
+
+    <script>
+        $(document).ready(function () { });
+    </script>
+}

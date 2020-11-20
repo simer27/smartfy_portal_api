@@ -1,0 +1,24 @@
+﻿@model Dockstation
+
+@{
+    ViewData["Title"] = "Excluir";
+}
+
+<h3>Tem certeza que deseja excluir?</h3>
+<div>
+    <h4>Dockstation</h4>
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-2">
+            <label class="control-label">Número Serial</label>
+            <input asp-for="Code" class="form-control form-control-sm" disabled />
+        </dt>
+    </dl>
+
+    <form asp-action="DeleteConfirmed" method="post">
+        @Html.AntiForgeryToken()
+        <input type="hidden" asp-for="Id" />
+        <input type="submit" value="Excluir" class="btn btn-outline-danger btn-sm w-150" /> |
+        <a class="btn btn-outline-secondary btn-sm w-150" asp-action="Index">Voltar</a>
+    </form>
+</div>
