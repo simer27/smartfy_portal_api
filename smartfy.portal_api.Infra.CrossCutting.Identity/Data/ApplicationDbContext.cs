@@ -18,12 +18,12 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Data
         public DbSet<Cliente> Clientes { get; set; }
         public DbSet<Produto> Produtos { get; set; }
         public DbSet<Despacho> Despachos { get; set; }
-
+       
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             new Cliente().Configure(modelBuilder.Entity<Cliente>().ToTable("Cliente"));
             new Produto().Configure(modelBuilder.Entity<Produto>().ToTable("Produto"));
-            new Despacho().Configure(modelBuilder.Entity<Despacho>().ToTable("Despacho"));
+            new Despacho().Configure(modelBuilder.Entity<Despacho>().ToTable("Despacho"));           
             base.OnModelCreating(modelBuilder);
         }
 

@@ -29,9 +29,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                 {
                     DT_RowId = r.Id,
                     codigo = r.Codigo,
-                    descricao = r.Descricao
+                    descricao = r.Descricao,
+                    dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy")
                 }).ToDataSourceAsync(request));
         }
+
 
         [HttpGet]
         public IActionResult Create()
