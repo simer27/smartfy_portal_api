@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using smartfy.portal_api.domain.Entities;
+using smartfy.portal_api.domain.Enums;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -18,19 +21,22 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View(Db.Produtos);
+            return View();
         }
 
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
         {
+            var teste = Db.Produtos.ToList();
             return Json(await Db.Produtos
                 .Select(r => new
                 {
                     DT_RowId = r.Id,
                     codigo = r.Codigo,
                     descricao = r.Descricao,
-                    dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy")
+                    dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
+                    isperecivel = r.IsPerecivel ? "Sim" : "Nao",
+                    status = r.Status == EStatus.Ativo ? "Ativo" : "Inativo"
                 }).ToDataSourceAsync(request));
         }
 
@@ -125,6 +131,16 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
         private void LoadViewBags()
         {
+            // Combobox/DropDownList from Static
+            ViewBag.Status = new List<SelectListItem>() {
+                new SelectListItem( "Ativo",Convert.ToString((int)EStatus.Ativo)),
+                new SelectListItem("Inativo",Convert.ToString((int)EStatus.Inativo)),
+            };
+
+            // Combobox/DropDownList from DB
+            ViewBag.ClientesSemNumero3 = Db.Clientes.Where(a => !a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}",c.Id.ToString()));
+            ViewBag.ClientesComNumero3 = Db.Clientes.Where(a => a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}", c.Id.ToString()));
+
         }
     }
 }

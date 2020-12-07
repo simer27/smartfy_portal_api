@@ -15,7 +15,7 @@
             <div class="card mt-2">
                 <div class="card-body">
                     <div class="card-title"><h6>Informações Básicas</h6></div>
-                    <div class="row">
+                    <div class="row">                       
                         <div class="col-3">
                             <div class="form-group">
                                 <label asp-for="Codigo" class="control-label">Codigo</label>
@@ -37,9 +37,37 @@
                             </div>
                             <span asp-validation-for="DtVencimento" class="text-danger"></span>
                         </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label asp-for="IsPerecivel" class="control-label">Perecível</label>
+                                <input asp-for="IsPerecivel" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="IsPerecivel" class="text-danger"></span>
+                        </div>
                     </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label">Status</label>
+                                <select asp-for="Status" asp-items="@ViewBag.Status" class="form-control form-control-sm">
+                                    <option selected="selected" value="0">Selecione</option>
+
+                                </select>
+                            </div>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label">Clientes</label>
+                                <select asp-for="Status" asp-items="@ViewBag.ClientesSemNumero3" class="form-control form-control-sm">
+                                    <option selected="selected" value="0">Selecione</option>
+
+                                </select>
+                            </div>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                    </div>                   
                 </div>
-            </div>
         </div>        
         <div class="col-4 mt-3">
             <input type="submit" value="Cadastrar" class="btn btn-outline-success btn-sm w-150" /> |

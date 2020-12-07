@@ -37,6 +37,35 @@
                             </div>
                             <span asp-validation-for="DtVencimento" class="text-danger"></span>
                         </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label asp-for="IsPerecivel" class="control-label">Perecível</label>
+                                <input asp-for="IsPerecivel" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="IsPerecivel" class="text-danger"></span>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label">Status</label>
+                                <select asp-for="Status" asp-items="@ViewBag.Status" class="form-control form-control-sm">
+                                    <option selected="selected" value="0">Selecione</option>
+
+                                </select>
+                            </div>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Status" class="control-label">Clientes</label>
+                                <select asp-for="Status" asp-items="@ViewBag.ClientesComNumero3" class="form-control form-control-sm">
+                                    <option selected="selected" value="0">Selecione</option>
+
+                                </select>
+                            </div>
+                            <span asp-validation-for="Status" class="text-danger"></span>
+                        </div>
                     </div>
                 </div>
             </div>
