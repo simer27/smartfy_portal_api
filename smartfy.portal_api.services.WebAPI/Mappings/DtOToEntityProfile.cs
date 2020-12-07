@@ -7,7 +7,6 @@ namespace smartfy.portal_api.services.WebAPI.Mappings
     {
         public DtOToEntityProfile()
         {
-            CreateMap<Partner, PartnerDto>().ReverseMap();
         }
     }
 }

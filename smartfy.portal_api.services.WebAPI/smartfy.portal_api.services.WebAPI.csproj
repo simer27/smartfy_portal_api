@@ -11,13 +11,9 @@
 
   <ItemGroup>
     <Compile Remove="Models\**" />
-    <Compile Remove="wwwroot\**" />
     <Content Remove="Models\**" />
-    <Content Remove="wwwroot\**" />
     <EmbeddedResource Remove="Models\**" />
-    <EmbeddedResource Remove="wwwroot\**" />
     <None Remove="Models\**" />
-    <None Remove="wwwroot\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -38,6 +34,12 @@
     <ProjectReference Include="..\smartfy.portal_api.domain\smartfy.portal_api.domain.csproj" />
     <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.Identity\smartfy.portal_api.Infra.CrossCutting.Identity.csproj" />
     <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.IoC\smartfy.portal_api.Infra.CrossCutting.IoC.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Update="wwwroot\docs\SwaggerHeader.css">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
   </ItemGroup>
 
 </Project>

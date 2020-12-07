@@ -10,7 +10,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="SmartFy">
-    <title>Dashboard PWC</title>
+    <title>SMARTFY TECH TALKS</title>
     <!-- Custom fonts for this template-->
 
     <link href="~/css/coreui/coreui.css" rel="stylesheet">
@@ -20,7 +20,7 @@
     <link href="~/css/site.css" rel="stylesheet">
 </head>
 
-<body id="page-top" class="c-app c-dark-theme">
+<body id="page-top" class="c-app c-default-theme">
     <!-- loading modal -->
     <div id="modalLoading" style="display: none">
         <div class="loading-modal text-center">
@@ -91,7 +91,7 @@
                     <a class="c-sidebar-nav-link" asp-controller="DashBoard" asp-action="Index">
                         <svg class="c-sidebar-nav-icon">
                             <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
-                        </svg> Dashboard
+                        </svg> Smartfy
                     </a>
                 </li>
             }
@@ -101,76 +101,39 @@
                     <a class="c-sidebar-nav-link" asp-controller="DashBoard" asp-action="Index">
                         <svg class="c-sidebar-nav-icon">
                             <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
-                        </svg> Dashboard
+                        </svg> Smartfy
                     </a>
                 </li>
-                <li class="c-sidebar-nav-title">Administração</li>
+                <li class="c-sidebar-nav-title">TECH TALKS</li>
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" asp-controller="Home" asp-action="Index">
+                    <a class="c-sidebar-nav-link" asp-controller="Produto" asp-action="Index">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-chart-line"></use>
-                        </svg> Home
-                    </a>
-                </li>
-                <li class="c-sidebar-nav-title">Parceiras</li>
-                <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" asp-controller="Partner" asp-action="Index">
-                        <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-industry"></use>
-                        </svg> Parceiras
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-cart"></use>
+                        </svg> PRODUTO
                     </a>
                 </li>
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" asp-controller="Area" asp-action="Index">
+                    <a class="c-sidebar-nav-link" asp-controller="Cliente" asp-action="Index">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-satelite"></use>
-                        </svg> Areas
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-user"></use>
+                        </svg> CLIENTE
                     </a>
                 </li>
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" asp-controller="Region" asp-action="Index">
+                    <a class="c-sidebar-nav-link" asp-controller="Despacho" asp-action="Index">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-map"></use>
-                        </svg> Regiões
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-truck"></use>
+                        </svg> DESPACHO
                     </a>
                 </li>
                 <li class="c-sidebar-nav-item">
-                    <a class="c-sidebar-nav-link" asp-controller="Team" asp-action="Index">
+                    <a class="c-sidebar-nav-link" asp-controller="Account" asp-action="LogoutEx">
                         <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-people"></use>
-                        </svg> Equipes
+                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-account-logout"></use>
+                        </svg> Sair
                     </a>
                 </li>
-                <li class="c-sidebar-nav-divider"></li>
-                <li class="c-sidebar-nav-title">Equipamentos</li>
-                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link" asp-controller="Camera" asp-action="Index">
-                        <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-camera"></use>
-                        </svg> Cameras
-                    </a>
-                </li>
-                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link" asp-controller="Disk" asp-action="Index">
-                        <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-folder"></use>
-                        </svg> Discos
-                    </a>
-                </li>
-                @*<li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                        <a class="c-sidebar-nav-link" asp-controller="File" asp-action="Index">
-                            <svg class="c-sidebar-nav-icon">
-                                <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-file"></use>
-                            </svg> Arquivos
-                        </a>
-                    </li>*@
-                <li class="c-sidebar-nav-item c-sidebar-nav-dropdown">
-                    <a class="c-sidebar-nav-link" asp-controller="Dockstation" asp-action="Index">
-                        <svg class="c-sidebar-nav-icon">
-                            <use xlink:href="/css/coreui/vendors/@@coreui/icons/svg/free.svg#cil-clipboard"></use>
-                        </svg> Dockstations
-                    </a>
-                </li>
+
             }
         </ul>
         <button class="c-sidebar-minimizer c-class-toggler" type="button" data-target="_parent" data-class="c-sidebar-minimized"></button>
@@ -209,8 +172,7 @@
                 </div>
             </main>
             <footer class="c-footer">
-                <div><a href="https://coreui.io">CoreUI</a> © 2020 creativeLabs.</div>
-                <div class="ml-auto">Powered by&nbsp;<a href="https://coreui.io/">CoreUI</a></div>
+                <div>© 2020 Smartfy.</div>
             </footer>
         </div>
     </div>

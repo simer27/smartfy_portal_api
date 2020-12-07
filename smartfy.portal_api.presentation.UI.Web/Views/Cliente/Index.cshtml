@@ -1,0 +1,26 @@
+﻿<fieldset class="fieldset">
+    <legend>Clientes da KeepTrack</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Cliente/List"
+                   data-cols="name,cpf,address"
+                   data-what="Clientes KeepTrack"
+                   data-delete-url="/Cliente/Delete"
+                   data-create-url="/Cliente/Create"
+                   data-edit-url="/Cliente/Edit">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>End.</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

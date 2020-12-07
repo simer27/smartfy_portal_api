@@ -1,0 +1,23 @@
+﻿﻿/* swagger ui customization */
+body.swagger-section #header {
+    background-position-x: 250px;
+    height: 50px;
+}
+
+
+body.swagger-section #header .swagger-ui-wrap #logo {
+    display: none;
+}
+
+.swagger-ui .topbar {
+    padding: 8px 0;
+    background-color: black !important;
+}
+
+.swagger-ui .topbar a {
+    display: none !important;
+}
+
+.title {
+    background-size: 107px;
+}

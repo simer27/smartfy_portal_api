@@ -135,6 +135,14 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         }
 
         [HttpGet]
+        [Route("account/logoutex")]
+        public async Task<IActionResult> LogoutEx()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction(nameof(HomeController.Index), "Home");
+        }
+
+        [HttpGet]
         [AllowAnonymous]
         public async Task<IActionResult> LoginWithRecoveryCode(string returnUrl = null)
         {

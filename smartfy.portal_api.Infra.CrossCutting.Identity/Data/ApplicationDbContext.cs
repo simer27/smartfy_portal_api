@@ -14,25 +14,16 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Data
     {
         private readonly IHostingEnvironment _env;
 
-        public DbSet<Partner> Partners { get; set; }
-        public DbSet<Region> Regions { get; set; }
-        public DbSet<Camera> Cameras { get; set; }
-        public DbSet<Team> Teams { get; set; }
-        public DbSet<Area> Areas { get; set; }
-        public DbSet<Dockstation> Dockstations { get; set; }
-        public DbSet<Disk> Disks { get; set; }
-        public DbSet<File> Files { get; set; }
+
+        public DbSet<Cliente> Clientes { get; set; }
+        public DbSet<Produto> Produtos { get; set; }
+        public DbSet<Despacho> Despachos { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            new Partner().Configure(modelBuilder.Entity<Partner>());
-            new Area().Configure(modelBuilder.Entity<Area>());
-            new Camera().Configure(modelBuilder.Entity<Camera>());
-            new Region(String.Empty).Configure(modelBuilder.Entity<Region>());
-            new Team(string.Empty,string.Empty,Guid.Empty,Guid.Empty).Configure(modelBuilder.Entity<Team>());
-            new File().Configure(modelBuilder.Entity<File>());
-            new Dockstation().Configure(modelBuilder.Entity<Dockstation>());
-            new Disk().Configure(modelBuilder.Entity<Disk>());
+            new Cliente().Configure(modelBuilder.Entity<Cliente>().ToTable("Cliente"));
+            new Produto().Configure(modelBuilder.Entity<Produto>().ToTable("Produto"));
+            new Despacho().Configure(modelBuilder.Entity<Despacho>().ToTable("Despacho"));
             base.OnModelCreating(modelBuilder);
         }
 

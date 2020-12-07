@@ -1,0 +1,27 @@
+﻿<fieldset class="fieldset">
+    <legend>Despachos da KeepTrack</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Despacho/List"
+                   data-cols="cliente,dtenvio,dtentrega,dtrecebimento"
+                   data-what="Despachos KeepTrack"
+                   data-delete-url="/Despacho/Delete"
+                   data-create-url="/Despacho/Create"
+                   data-edit-url="/Despacho/Edit">
+                <thead>
+                    <tr>
+                        <th>Cliente</th>
+                        <th>Dt. Envio</th>
+                        <th>Dt. Prevista</th>
+                        <th>Dt. Realizada</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

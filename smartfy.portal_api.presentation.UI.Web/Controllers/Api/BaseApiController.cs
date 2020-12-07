@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 
 namespace smartfy.portal_api.presentation.UI.Web.Controllers.Api

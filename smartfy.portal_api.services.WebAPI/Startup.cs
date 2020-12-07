@@ -75,7 +75,7 @@ namespace smartfy.portal_api.services.WebAPI
                     c.SwaggerDoc("v1",
                         new Info
                         {
-                            Title = "Portal API",
+                            Title = "TECH TALKS API",
                             Version = "v1",
                             Description = "API REST criada para uso do portal",
                             Contact = new Contact
@@ -134,13 +134,15 @@ namespace smartfy.portal_api.services.WebAPI
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
             app.UseAuthentication();
             app.UseSwagger();
             app.UseSwaggerUI(c =>
             {
-                c.SwaggerEndpoint("/swagger/v1/swagger.json",
-                    "Portal API");
+                c.SwaggerEndpoint("/swagger/v1/swagger.json","TECH TALKS API");
+                c.RoutePrefix = "docs";
+                c.DocumentTitle = "TECH TALKS API";
+                c.InjectStylesheet("/docs/SwaggerHeader.css");
             });
             app.UseMvc();
         }
