@@ -43,9 +43,15 @@
 
 
   <ItemGroup>
-    <ProjectReference Include="..\smartfy.portal_api.domain\smartfy.portal_api.domain.csproj" />
-    <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.Identity\smartfy.portal_api.Infra.CrossCutting.Identity.csproj" />
-    <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.IoC\smartfy.portal_api.Infra.CrossCutting.IoC.csproj" />
+    <ProjectReference Include="..\smartfy.portal_api.domain\smartfy.portal_api.domain.csproj">
+      <GlobalPropertiesToRemove>;WebPublishProfileFile</GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.Identity\smartfy.portal_api.Infra.CrossCutting.Identity.csproj">
+      <GlobalPropertiesToRemove>;WebPublishProfileFile</GlobalPropertiesToRemove>
+    </ProjectReference>
+    <ProjectReference Include="..\smartfy.portal_api.Infra.CrossCutting.IoC\smartfy.portal_api.Infra.CrossCutting.IoC.csproj">
+      <GlobalPropertiesToRemove>;WebPublishProfileFile</GlobalPropertiesToRemove>
+    </ProjectReference>
   </ItemGroup>
 
 </Project>

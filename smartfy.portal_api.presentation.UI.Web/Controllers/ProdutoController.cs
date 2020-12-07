@@ -71,7 +71,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             LoadViewBags();
 
-            return View(item);
+            return View(item);           
         }
 
         [HttpPost]
