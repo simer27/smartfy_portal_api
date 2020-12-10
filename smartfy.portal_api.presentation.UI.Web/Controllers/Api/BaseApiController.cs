@@ -5,11 +5,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers.Api
 {
     public class BaseApiController : Controller
     {
-        protected readonly ApplicationDbContext _context;
+        protected readonly ApplicationDbContext Db;
 
         public BaseApiController(ApplicationDbContext context)
         {
-            _context = context;
+            Db = context;
         }
 
         protected new IActionResult Response(object result = null, bool success = true)

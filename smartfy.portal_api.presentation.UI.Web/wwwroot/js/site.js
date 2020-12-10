@@ -128,16 +128,23 @@ $(document).ready(function () {
             };
         });
 
+ 
+
         var what = $(v).data('what');
         var deleteUrl = $(v).data('delete-url');
         var editUrl = $(v).data('edit-url');
         var createUrl = $(v).data('create-url');
 
+
         columns.push({
             "data": null,
             render: function (data) {
                 return `<a href='${editUrl}/${data.dT_RowId}' class='btn btn-outline-info btn-sm btn-edit'>Editar</a>
-                    <a href='${deleteUrl}/${data.dT_RowId}' class='btn btn-outline-danger btn-sm btn-remove'>Excluir</a>`;
+                   
+            <!-- Button trigger modal -->
+            <button type="button" class="btn btn-outline-danger btn-sm btn-remove" id="btn-remove" data-toggle="modal" data-target="#excludeproduct">
+                Excluir
+            </button>`;              
             }
         });
 
@@ -158,12 +165,14 @@ $(document).ready(function () {
                     rowCallBack(row, data);// isso daqui serve para criarmos um rowcallback diferente para cada view
                     // se adicionarmos uma funccao chamada rollcalback na pagina index ela sera executada aqui. agora que vi, rollcakback esta errado
                 }
-                $(row).find('.btn-remove').unbind('click').click(function () {
-                    window.location.href = deleteUrl + "/" + data.dT_RowId;
-                });
-                $(row).find('.btn-edit').unbind('click').click(function () {
-                    window.location.href = editUrl + "/" + data.dT_RowId;
-                });
+                
+                    //$(row).find('.btn-remove').unbind('click').click(function () {
+                    //    window.location.href = deleteUrl + "/" + data.dT_RowId;
+                    //});
+                    //$(row).find('.btn-edit').unbind('click').click(function () {
+                    //    window.location.href = editUrl + "/" + data.dT_RowId;
+                    //});
+                
             },
             colReorder: true,
             autoFill: true,

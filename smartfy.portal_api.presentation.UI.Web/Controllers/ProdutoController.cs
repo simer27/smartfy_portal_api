@@ -4,6 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using smartfy.portal_api.domain.Entities;
 using smartfy.portal_api.domain.Enums;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
+using smartfy.portal_api.presentation.UI.Web.Controllers.Api;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
 using System;
 using System.Collections.Generic;
@@ -53,6 +54,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [AutoValidateAntiforgeryToken]
         public IActionResult Create(Produto vm)
         {
+            LoadViewBags();
             if (!ModelState.IsValid)
             {
                 return View(vm);
@@ -84,6 +86,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult Edit(Produto vm)
         {
+
             if (!ModelState.IsValid)
             {
                 LoadViewBags();
@@ -114,9 +117,9 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult DeleteConfirmed(Produto Produto)
+        public IActionResult DeleteConfirmed(DeleteViewModel vm)
         {
-            var item = Db.Produtos.FirstOrDefault(c => c.Id == Produto.Id);
+            var item = Db.Produtos.FirstOrDefault(c => c.Id == vm.Id);
 
             if (item == null) return BadRequest();
 
@@ -124,7 +127,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             Db.SaveChanges();
 
 
-            NotifySuccess("Sucesso", "Cadastro removido com sucesso.");
+            NotifySuccess("Sucesso", "Produto removido com sucesso.");
 
             return RedirectToAction("Index");
         }
