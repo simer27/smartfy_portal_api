@@ -1,6 +1,6 @@
 ﻿namespace smartfy.portal_api.domain.Enums
 {
-    public enum ECodigo 
+    public enum ECodigo
     {
         APPLE1 = 1,
         APPLE2 = 2,

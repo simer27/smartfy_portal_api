@@ -25,6 +25,13 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             return View();
         }
 
+        [HttpGet]
+        public IActionResult Pesquisa()
+        {
+            LoadViewBags();
+            return View(Db.Produtos.ToList()); //Model da View = List de Produtos
+        }
+
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
         {           
@@ -36,11 +43,10 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     descricao = r.Descricao,
                     dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
-                    status = r.Status == EStatus.Ativo ? "Ativo" : "Inativo",
+                    status = r.Status == EStatus.Inativo ? "Inativo" : "Ativo",
                     numeroserie = r.NumeroSerie
                 }).ToDataSourceAsync(request));
         }
-
 
         [HttpGet]
         public IActionResult Create()

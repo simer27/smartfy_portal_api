@@ -1,0 +1,142 @@
+﻿@model List<Produto>
+@*Model da funcao Pesquisa do Controller*@
+
+
+@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery
+
+@{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
+
+<fieldset class="fieldset">
+    <form id="myform">
+
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="card-title"><h6>Filtros</h6></div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label">Codigo</label>
+                                    <input class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label">Descricao</label>
+                                    <input class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label">Data de Vencimento</label>
+                                    <input type="date" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <select asp-items="@ViewBag.Status" class="form-control form-control-sm">
+                                        <option selected="selected" value="0">Selecione</option>
+
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input type="submit" value="Pesquisar" class="btn btn-success w-150" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+    </form>
+</fieldset>
+
+<fieldset class="fieldset">
+    <legend></legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dtX" class="table-responsive-sm table table-striped table-bordered" style="width:100%">
+                <thead>
+                    <tr>
+                        <th>Cod.</th>
+                        <th>Descricao</th>
+                        <th>Data Vencimento</th>
+                        <th>Status</th>
+                        <th>Perecivel</th>
+                        <th>Num. Serie</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (Produto item in Model)
+                    {
+                        <tr id="@item.Id" role="row">
+                            <td>@item.Codigo</td>
+                            <td>@item.Descricao</td>
+                            <td>@item.DtVencimento.ToShortDateString()</td>
+                            <td>@item.Status == EStatus.Inativo ? "Inativo" : "Ativo"</td>
+                            <td>@item.IsPerecivel ? "Sim" : "Nao"</td>
+                            <td>@item.NumeroSerie</td>
+                        </tr>
+                    }
+                </tbody>
+
+            </table>
+        </div>
+    </div>
+</fieldset>
+
+<br />
+
+<!-- PUSH JS likes-->
+@section Scripts
+{
+    <script>
+
+        $('#dtX').dataTable({
+            lengthMenu: [25, 50, 75, 100],
+            dom: 'Bf<"toolbar">rtip',
+            bProcessing: true,
+            bServerSide: false,
+            bSearch: true,
+            colReorder: true,
+            autoFill: true,
+            keys: true,
+            select: true,
+            "rowCallback": rollCallBackEx,
+            buttons: [
+                {
+                    extend: 'print',
+                    text: 'Imprimir',
+                    className: 'btn btn-primary btn-sm'
+                },
+                {
+                    extend: 'copy',
+                    text: 'Copiar',
+                    className: 'btn btn-success btn-sm'
+                },
+                {
+                    extend: 'excel',
+                    className: 'btn btn-warning btn-sm'
+                },
+                {
+                    extend: 'pdf',
+                    className: 'btn btn-danger btn-sm'
+                }
+            ]
+        });
+
+    </script>
+}
