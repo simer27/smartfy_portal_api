@@ -243,6 +243,8 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<bool>("IsPerecivel");
 
+                    b.Property<string>("NumeroSerie");
+
                     b.Property<int>("Status");
 
                     b.HasKey("Id");

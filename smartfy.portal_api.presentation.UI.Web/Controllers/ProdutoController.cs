@@ -27,8 +27,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
-        {
-            var teste = Db.Produtos.ToList();
+        {           
             return Json(await Db.Produtos
                 .Select(r => new
                 {
@@ -37,7 +36,8 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     descricao = r.Descricao,
                     dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
-                    status = r.Status == EStatus.Ativo ? "Ativo" : "Inativo"
+                    status = r.Status == EStatus.Ativo ? "Ativo" : "Inativo",
+                    numeroserie = r.NumeroSerie
                 }).ToDataSourceAsync(request));
         }
 
@@ -56,6 +56,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         {
             LoadViewBags();
             if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            if (!string.IsNullOrEmpty(vm.NumeroSerie)  &&  !vm.NumeroSerie.StartsWith("SFY"))
             {
                 return View(vm);
             }
@@ -90,6 +95,12 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             if (!ModelState.IsValid)
             {
                 LoadViewBags();
+                return View(vm);
+            }
+
+            if (!string.IsNullOrEmpty(vm.NumeroSerie) && !vm.NumeroSerie.StartsWith("SFY"))
+            {
+                ModelState.AddModelError("NumeroSerie", "Número de série inválido.");
                 return View(vm);
             }
 
@@ -144,6 +155,15 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             ViewBag.ClientesSemNumero3 = Db.Clientes.Where(a => !a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}",c.Id.ToString()));
             ViewBag.ClientesComNumero3 = Db.Clientes.Where(a => a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}", c.Id.ToString()));
 
+            // Combobox/DropDownList for Filters (Codigo)
+            //ViewBag.Codigo = Db.Produtos.Where(Codigo);                     
+            //};
+
+            // Combobox/DropDownList for Filters (Descricao)
+            //ViewBag.Descricao = new List<SelectListItem>() {
+            //    new SelectListItem( "Ativo",Convert.ToString((int)EStatus.Ativo)),
+            //    new SelectListItem("Inativo",Convert.ToString((int)EStatus.Inativo)),
+            //};
         }
     }
 }
