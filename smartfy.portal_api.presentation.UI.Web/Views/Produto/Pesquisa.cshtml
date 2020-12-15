@@ -1,18 +1,14 @@
-﻿@model List<Produto>
+﻿@model ProdutoViewModel
 @*Model da funcao Pesquisa do Controller*@
 
 
-@using Microsoft.AspNetCore.Antiforgery
-@inject IAntiforgery antiforgery
-
-@{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
 
 <fieldset class="fieldset">
-    <form id="myform">
+    <form asp-action="Pesquisa" id="myform">
 
         <div class="row">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
+            @Html.AntiForgeryToken()
             <div class="col-12">
                 <div class="card mt-2">
                     <div class="card-body">
@@ -27,7 +23,7 @@
                             <div class="col-3">
                                 <div class="form-group">
                                     <label class="control-label">Descricao</label>
-                                    <input class="form-control form-control-sm" />
+                                    <input asp-for="FilterDescricao" id="FilterDescricao" name="FilterDescricao" class="form-control form-control-sm" />
                                 </div>
                             </div>
                             <div class="col-3">
@@ -60,7 +56,7 @@
 
             </div>
 
-    </form>
+</form>
 </fieldset>
 
 <fieldset class="fieldset">
@@ -80,7 +76,7 @@
                     </tr>
                 </thead>
                 <tbody>
-                    @foreach (Produto item in Model)
+                    @foreach (Produto item in Model.Produtos)
                     {
                         <tr id="@item.Id" role="row">
                             <td>@item.Codigo</td>

@@ -6,6 +6,7 @@ using smartfy.portal_api.domain.Enums;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.presentation.UI.Web.Controllers.Api;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
+using smartfy.portal_api.presentation.UI.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,12 +26,35 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             return View();
         }
 
+        #region FILTERS
         [HttpGet]
         public IActionResult Pesquisa()
         {
             LoadViewBags();
-            return View(Db.Produtos.ToList()); //Model da View = List de Produtos
+
+            var vm = new ProdutoViewModel();
+            vm.Produtos = Db.Produtos.ToList();
+            return View(vm); //Model da View = List de Produtos
         }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Pesquisa(ProdutoViewModel vm)
+        {
+            LoadViewBags();
+
+            //Filters - BEGINS
+            var produtosFiltrados = Db.Produtos
+                .Where(r => !r.Excluded 
+                            && (!string.IsNullOrEmpty(vm.FilterDescricao) ? r.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()) : true)
+                            && (!string.IsNullOrEmpty(vm.FilterCodigo) ? r.Codigo.ToUpper().Contains(vm.FilterCodigo.ToUpper()) : true)
+                ).ToList(); //Model da View = List de Produtos
+            //Filters - ENDS
+
+            vm.Produtos = produtosFiltrados;
+            return View(vm); //Model da View = List de Produtos
+        }
+        #endregion //FILTERS
 
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
@@ -48,6 +72,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                 }).ToDataSourceAsync(request));
         }
 
+        #region CRUD
         [HttpGet]
         public IActionResult Create()
 
@@ -148,6 +173,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             return RedirectToAction("Index");
         }
+        #endregion //CRUD
 
         private void LoadViewBags()
         {
