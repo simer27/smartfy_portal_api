@@ -2,6 +2,7 @@
 {
     public enum EStatus
     {
+        None = 0,
         Ativo = 1,
         Inativo = 2
     }

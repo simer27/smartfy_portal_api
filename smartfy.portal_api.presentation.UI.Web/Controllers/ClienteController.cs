@@ -2,6 +2,7 @@
 using smartfy.portal_api.domain.Entities;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
+using smartfy.portal_api.presentation.UI.Web.Models;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -49,6 +50,28 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             }
 
             Db.Clientes.Add(vm);
+            Db.SaveChanges();
+
+            LoadViewBags();
+            NotifySuccess("Sucesso:", "Cadastro inserido com sucesso!");
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult CreateBulkInsert(ClienteVM vm)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(vm);
+            }
+
+            foreach (var cliente in vm.Clientes)
+            {
+                Db.Clientes.Add(cliente);
+            }
+           
             Db.SaveChanges();
 
             LoadViewBags();

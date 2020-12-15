@@ -6,6 +6,7 @@ using smartfy.portal_api.domain.Enums;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.presentation.UI.Web.Controllers.Api;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
+using smartfy.portal_api.presentation.UI.Web.Extensions;
 using smartfy.portal_api.presentation.UI.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -21,10 +22,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
-        {
-            return View();
-        }
+        public IActionResult Index() => View(); //return View();
 
         #region FILTERS
         [HttpGet]
@@ -32,9 +30,15 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         {
             LoadViewBags();
 
-            var vm = new ProdutoViewModel();
-            vm.Produtos = Db.Produtos.ToList();
-            return View(vm); //Model da View = List de Produtos
+            return View(new ProdutoViewModel()
+            {
+                Produtos = Db.Produtos.ToList(),
+                FilterDtCadastroDe = DateTime.Now.ToFirstDayOfMonth(),
+                FilterDtCadastroAte = DateTime.Now.ToLastDayOfMonthSmartest(),
+                FilterStatus = EStatus.None,
+                FilterCodigo = string.Empty,
+                FilterDescricao = string.Empty // AMADOR => ""
+            }); //Model da View = List de Produtos
         }
 
         [HttpPost]
@@ -44,21 +48,24 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             LoadViewBags();
 
             //Filters - BEGINS
-            var produtosFiltrados = Db.Produtos
-                .Where(r => !r.Excluded 
-                            && (!string.IsNullOrEmpty(vm.FilterDescricao) ? r.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()) : true)
-                            && (!string.IsNullOrEmpty(vm.FilterCodigo) ? r.Codigo.ToUpper().Contains(vm.FilterCodigo.ToUpper()) : true)
-                ).ToList(); //Model da View = List de Produtos
+            var produtosFiltrados = Db.Produtos.Where(r => !r.Excluded && r.IsVencido());
+
+            if (!string.IsNullOrEmpty(vm.FilterDescricao))
+                produtosFiltrados = produtosFiltrados.Where(c => c.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()));
+
+            produtosFiltrados = produtosFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
+            produtosFiltrados = produtosFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
+
             //Filters - ENDS
 
-            vm.Produtos = produtosFiltrados;
+            vm.Produtos = produtosFiltrados.ToList();
             return View(vm); //Model da View = List de Produtos
         }
         #endregion //FILTERS
 
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
-        {           
+        {
             return Json(await Db.Produtos
                 .Select(r => new
                 {
@@ -91,7 +98,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                 return View(vm);
             }
 
-            if (!string.IsNullOrEmpty(vm.NumeroSerie)  &&  !vm.NumeroSerie.StartsWith("SFY"))
+            if (!string.IsNullOrEmpty(vm.NumeroSerie) && !vm.NumeroSerie.StartsWith("SFY"))
             {
                 return View(vm);
             }
@@ -115,7 +122,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             LoadViewBags();
 
-            return View(item);           
+            return View(item);
         }
 
         [HttpPost]
@@ -184,7 +191,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             };
 
             // Combobox/DropDownList from DB
-            ViewBag.ClientesSemNumero3 = Db.Clientes.Where(a => !a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}",c.Id.ToString()));
+            ViewBag.ClientesSemNumero3 = Db.Clientes.Where(a => !a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}", c.Id.ToString()));
             ViewBag.ClientesComNumero3 = Db.Clientes.Where(a => a.CPF.StartsWith("3")).Select(c => new SelectListItem($"{c.Name} - {c.CPF}", c.Id.ToString()));
 
             // Combobox/DropDownList for Filters (Codigo)

@@ -1,4 +1,5 @@
 ﻿using smartfy.portal_api.domain.Entities;
+using smartfy.portal_api.domain.Enums;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,5 +18,6 @@ namespace smartfy.portal_api.presentation.UI.Web.Models
         public string FilterDescricao { get; set; }
         public DateTime FilterDtCadastroDe { get; set; }
         public DateTime FilterDtCadastroAte { get; set; }
+        public EStatus FilterStatus { get; set; }
     }
 }
