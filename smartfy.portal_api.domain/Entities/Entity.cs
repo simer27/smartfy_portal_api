@@ -2,14 +2,14 @@
 
 namespace smartfy.portal_api.domain.Entities
 {
-    public abstract class Entity
+    public class Entity
     {
 
         public Guid Id { get; set; }
 
         public DateTime CreationDate { get; private set; }
 
-        public bool Excluded { get; private set; }
+        public bool Excluded { get; set; }
 
         public Entity()
         {
@@ -18,9 +18,10 @@ namespace smartfy.portal_api.domain.Entities
             Excluded = false;
         }
 
-        public void Delete()
+        public bool Delete()
         {
             Excluded = true;
+            return Excluded;
         }
 
 

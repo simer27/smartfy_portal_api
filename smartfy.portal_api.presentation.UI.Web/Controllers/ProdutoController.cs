@@ -52,7 +52,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             if (!string.IsNullOrEmpty(vm.FilterDescricao))
                 produtosFiltrados = produtosFiltrados.Where(c => c.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()));
-
+            //produtosFiltrados = produtosFiltrados.Where(r => );
             produtosFiltrados = produtosFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
             produtosFiltrados = produtosFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
 
@@ -66,7 +66,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
         {
-            return Json(await Db.Produtos
+            return Json(await Db.Produtos.Where(r => r.Excluded != true)
                 .Select(r => new
                 {
                     DT_RowId = r.Id,
@@ -98,10 +98,13 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                 return View(vm);
             }
 
-            if (!string.IsNullOrEmpty(vm.NumeroSerie) && !vm.NumeroSerie.StartsWith("SFY"))
-            {
-                return View(vm);
-            }
+            Random randNum = new Random();
+            vm.NumeroSerie = randNum.Next().ToString();
+
+            //if (!string.IsNullOrEmpty(vm.NumeroSerie))
+            //{
+            //    return View(vm);
+            //}
 
             Db.Produtos.Add(vm);
             Db.SaveChanges();
@@ -136,11 +139,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                 return View(vm);
             }
 
-            if (!string.IsNullOrEmpty(vm.NumeroSerie) && !vm.NumeroSerie.StartsWith("SFY"))
-            {
-                ModelState.AddModelError("NumeroSerie", "Número de série inválido.");
-                return View(vm);
-            }
+            //if (!string.IsNullOrEmpty(vm.NumeroSerie) && !vm.NumeroSerie.StartsWith("SFY"))
+            //{
+            //    ModelState.AddModelError("NumeroSerie", "Número de série inválido.");
+            //    return View(vm);
+            //}
 
             var partner = Db.Produtos.AsNoTracking().Where(c => c.Id == vm.Id);
             if (partner == null) return BadRequest();
@@ -168,11 +171,18 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [ValidateAntiForgeryToken]
         public IActionResult DeleteConfirmed(DeleteViewModel vm)
         {
+            Entity entity = new Entity();
+
             var item = Db.Produtos.FirstOrDefault(c => c.Id == vm.Id);
 
             if (item == null) return BadRequest();
-
-            Db.Produtos.Remove(item);
+            
+            //Utilizei a função Delete da Classe Entity
+            //Função utiliza o campo excluded
+            
+            item.Excluded = entity.Delete();
+            Db.Produtos.Update(item);
+            //Db.Produtos.Remove(item);
             Db.SaveChanges();
 
 
