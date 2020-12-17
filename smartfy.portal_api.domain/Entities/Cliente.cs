@@ -16,6 +16,7 @@ namespace smartfy.portal_api.domain.Entities
         {
             builder.HasKey(c => c.Id);
             builder.Property(x => x.Id).IsRequired();
+            builder.Property(c => c.CPF).HasMaxLength(11);//Não deu certo, VERIFICAR!!!
         }
     }
 }

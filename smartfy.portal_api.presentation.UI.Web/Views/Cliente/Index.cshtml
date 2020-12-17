@@ -1,4 +1,8 @@
-﻿<fieldset class="fieldset">
+﻿@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery
+@{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
+
+<fieldset class="fieldset">
     <legend>Clientes da KeepTrack</legend>
     <div class="row-fluid">
         <div class="span6">
@@ -24,3 +28,89 @@
     </div>
 </fieldset>
 <br />
+
+<!-- Modal -->
+<div class="modal fade" id="excludecliente" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Cliente</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p>Você esta prestes a deletar <b id="cliente"></b>, essa ação não poderá mais ser desfeita.</p>
+                <input type="hidden" id="clienteId" />
+            </div>
+            <div class="modal-footer">
+                <button id="btnCloseModal" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a id="btnDeleteConfirmed" href="" type="submit" class="btn btn-danger">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PUSH JS likes-->
+@section Scripts {
+    <script>
+$('#btnDeleteConfirmed').click(function () {
+            //cb starts
+            deleteItem($('#clienteId').val());
+            //cb ends
+        });
+
+
+        function displayItem(clienteId) {
+            //pegar o item
+            $.ajax({
+                url: '/api/Cliente/' + clienteId,
+                method: 'GET'
+            }).done(function (data) {
+                console.log(data.descricao);
+                $("#cliente").text(data.descricao);
+                $("#clienteId").val(data.id);
+            }).fail(function (errorMsg) {
+                console.log(errorMsg);
+                alert('Failed to save.');
+            });
+            //
+        }
+
+        function deleteItem(clienteId) {
+            console.log(clienteId);
+
+
+
+            $.ajax({
+                url: '/Cliente/DeleteConfirmed',
+                type: 'POST',
+                headers: {
+                    '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
+                },
+                data: {
+                    Id: clienteId
+                },
+                dataType: "json",
+                success: function (response)
+                {
+                    @*$("excludeproduct").hide();
+                    location.reload();*@
+
+                },
+                error: function (xhr) {
+                }
+            });
+
+        }
+
+        function rowCallBack(row, data) {
+
+            $(row).find('#btn-remove').unbind('click').click(function () {
+                displayItem(data.dT_RowId);
+            });
+        }</script>
+
+
+}
