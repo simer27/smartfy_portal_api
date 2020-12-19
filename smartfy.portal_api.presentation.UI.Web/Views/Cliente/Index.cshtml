@@ -1,6 +1,53 @@
 ﻿@using Microsoft.AspNetCore.Antiforgery
 @inject IAntiforgery antiforgery
+@model ClienteVM
 @{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
+
+<fieldset class="fieldset">
+    <form asp-action="Pesquisa" id="myform">
+
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="card-title"><h6>Filtros</h6></div>
+                        <div class="row">
+                            <div class="col-1">
+                                <div class="form-group">
+                                    <label class="control-label">Nome</label>
+                                    <input asp-for="FilterName" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <div class="form-group">
+                                    <label class="control-label">CPF</label>
+                                    <input asp-for="FilterCPF" id="FilterDescricao" name="FilterDescricao" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Endereço</label>
+                                    <input asp-for="FilterAddress" type="date" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input type="submit" value="Pesquisar" class="btn btn-success w-150" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</fieldset>
 
 <fieldset class="fieldset">
     <legend>Clientes da KeepTrack</legend>

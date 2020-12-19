@@ -1,9 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using smartfy.portal_api.domain.Entities;
+using smartfy.portal_api.domain.Enums;
 using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 using smartfy.portal_api.presentation.UI.Web.Controllers.Api;
 using smartfy.portal_api.presentation.UI.Web.DataTables;
+using smartfy.portal_api.presentation.UI.Web.Extensions;
 using smartfy.portal_api.presentation.UI.Web.Models;
 using System;
 using System.Linq;
@@ -18,9 +20,45 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Index() => View();
+
+        [HttpGet]
+        public IActionResult Pesquisa()
         {
-            return View(Db.Clientes);
+            LoadViewBags();
+
+            return View(new ClienteVM()
+            {
+                Clientes = Db.Clientes.ToList(),
+                FilterAddress = string.Empty,
+                FilterCPF = string.Empty,
+                FilterName = string.Empty // AMADOR => ""
+            }); //Model da View = List de Produtos
+        }
+
+        [HttpPost]
+        [AutoValidateAntiforgeryToken]
+        public IActionResult Pesquisa(ClienteVM vm)
+        {
+            LoadViewBags();
+
+            //Filters - BEGINS
+            var clientesFiltrados = Db.Clientes.Where(r => !r.Excluded
+            && !string.IsNullOrEmpty(vm.FilterAddress) ? vm.FilterAddress.ToUpper() == r.Address.ToUpper() : true
+            && !string.IsNullOrEmpty(vm.FilterCPF) ? vm.FilterCPF == r.CPF : true
+            && !string.IsNullOrEmpty(vm.FilterName) ? vm.FilterName.ToUpper() == r.Name.ToUpper() : true
+            );
+
+            //if (!string.IsNullOrEmpty(vm.FilterDescricao))
+            //    clientesFiltrados = clientesFiltrados.Where(c => c.Address.ToUpper().Contains(vm..ToUpper()));
+            ////produtosFiltrados = produtosFiltrados.Where(r => );
+            //clientesFiltrados = clientesFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
+            //clientesFiltrados = clientesFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
+
+            //Filters - ENDS
+            //filtro parou aqui preciso verificar (ocorreu um erro)
+            vm.Clientes = clientesFiltrados.ToList();
+            return View(vm); //Model da View = List de Produtos
         }
 
         [HttpPost]
@@ -74,7 +112,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             {
                 Db.Clientes.Add(cliente);
             }
-           
+
             Db.SaveChanges();
 
             LoadViewBags();
@@ -116,7 +154,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             return RedirectToAction("Index");
         }
-        
+
         [HttpGet]
         public IActionResult Delete(Guid id)
         {

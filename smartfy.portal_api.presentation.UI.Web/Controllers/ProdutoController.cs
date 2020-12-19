@@ -20,7 +20,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         public ProdutoController(ApplicationDbContext db) : base(db)
         {
         }
-
+        #region INDEX
         [HttpGet]
         public IActionResult Index() => View(); //return View();
 
@@ -78,7 +78,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     numeroserie = r.NumeroSerie
                 }).ToDataSourceAsync(request));
         }
-
+        #endregion
         #region CRUD
         [HttpGet]
         public IActionResult Create()
