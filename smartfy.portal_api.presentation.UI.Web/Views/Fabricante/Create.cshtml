@@ -1,0 +1,62 @@
+﻿@model Fabricante
+
+@{
+    ViewData["Title"] = "Cadastro de Produto";
+}
+
+<h4>Fabricantes</h4>
+
+<form asp-action="Create" id="myform">
+
+    <div class="row">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <div class="col-12">
+            <div class="card mt-2">
+                <div class="card-body">
+                    <div class="card-title"><h6>Informações Básicas</h6></div>
+                    <div class="row">
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Codigo" class="control-label">Codigo</label>
+                                <input asp-for="Codigo" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Codigo" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Nome" class="control-label">Nome</label>
+                                <input asp-for="Nome" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Nome" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="CNPJ" class="control-label">CNPJ</label>
+                                <input asp-for="CNPJ" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="CNPJ" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Telefone" class="control-label">Telefone</label>
+                                <input asp-for="Telefone" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Telefone" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group text-center">
+                                <label asp-for="Endereco" class="control-label">Endereço</label>
+                                <input asp-for="Endereco" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Endereco" class="text-danger"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-4 mt-3">
+                <input type="submit" value="Cadastrar" class="btn btn-outline-success btn-sm w-150" /> |
+                <a class="btn btn-outline-secondary btn-sm w-150" asp-action="Index">Voltar</a>
+            </div>
+        </div>
+</form>

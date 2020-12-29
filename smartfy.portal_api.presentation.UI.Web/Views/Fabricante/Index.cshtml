@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Antiforgery
 @inject IAntiforgery antiforgery
-@model ClienteVM
+@model FabricanteViewModel
 @{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
 
 <fieldset class="fieldset">
@@ -16,25 +16,36 @@
                         <div class="row">
                             <div class="col-1">
                                 <div class="form-group">
-                                    <label class="control-label">Nome</label>
-                                    <input asp-for="FilterName" class="form-control form-control-sm" />
+                                    <label class="control-label">Codigo</label>
+                                    <input asp-for="FilterCodigo" class="form-control form-control-sm" />
                                 </div>
                             </div>
                             <div class="col-5">
                                 <div class="form-group">
-                                    <label class="control-label">CPF</label>
-                                    <input asp-for="FilterCPF" id="FilterCPF" name="FilterCPF" class="form-control form-control-sm" />
+                                    <label class="control-label">Nome</label>
+                                    <input asp-for="FilterNome" id="FilterNome" name="FilterNome" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">CNPJ</label>
+                                    <input asp-for="FilterCnpj" id="FilterCnpj" name="FilterCnpj" class="form-control form-control-sm" />
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="control-label">Endereço</label>
-                                    <input asp-for="FilterAddress"  class="form-control form-control-sm" />
+                                    <input asp-for="FilterEndereco" id="FilterEndereco" name="FilterEndereco" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Telefone</label>
+                                    <input asp-for="FilterTelefone" id="FilterTelefone" name="FilterTelefone" class="form-control form-control-sm" />
                                 </div>
                             </div>
                         </div>
                         <div class="row">
-
                             <div class="col-3">
                                 <div class="form-group">
                                     <label class="control-label"></label>
@@ -45,51 +56,54 @@
                     </div>
                 </div>
             </div>
-        </div>
     </form>
 </fieldset>
 
 <fieldset class="fieldset">
-    <legend>Clientes da KeepTrack</legend>
+    <legend>Fabricantes</legend>>
     <div class="row-fluid">
         <div class="span6">
             @Html.AntiForgeryToken()
             <table id="dt" class="dt table table-striped table-bordered"
-                   style="width:100%"
-                   data-url="/Cliente/List"
-                   data-cols="name,cpf,address"
-                   data-what="Clientes KeepTrack"
-                   data-delete-url="/Cliente/Delete"
-                   data-create-url="/Cliente/Create"
-                   data-edit-url="/Cliente/Edit">
-                <thead>
-                    <tr>
-                        <th>Nome</th>
-                        <th>CPF</th>
-                        <th>End.</th>
-                        <th data-orderable="false" class="w-110"></th>
-                    </tr>
-                </thead>
+            style="width:100%"
+            data-url="/Fabricante/List"
+            data-cols="codigo,nome,cnpj,telefone,endereco"
+            data-what="Fabricantes KeepTrack"
+            data-delete-url="/Fabricante/Delete"
+            data-create-url="/Fabricante/Create"
+            data-edit-url="/Fabricante/Edit"
+            <thead>
+            <tr>
+            <th>Cod.</th>
+            <th>Nome</th>
+            <th>CNPJ</th>
+            <th>Tel.</th>
+            <th>End.</th>
+            <th data-orderable="false" class="w-110"></th>
+            </tr>
+            </thead>
             </table>
         </div>
     </div>
 </fieldset>
+
 <br />
 
+
 <!-- Modal -->
-<div class="modal fade" id="excludecliente" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade" id="excludeproduct" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Excluir Cliente</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Fabricante</h5>>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <p>Você esta prestes a deletar <b id="cliente"></b>, essa ação não poderá mais ser desfeita.</p>
-                <input type="hidden" id="clienteId" />
+                <p>Você esta prestes a deletar <b id="fabricante"></b>, essa ação não poderá mais ser desfeita.</p>
+                <input type="hidden" id="fabricanteId" />
             </div>
             <div class="modal-footer">
                 <button id="btnCloseModal" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -104,20 +118,20 @@
     <script>
 $('#btnDeleteConfirmed').click(function () {
             //cb starts
-            deleteItem($('#clienteId').val());
+            deleteItem($('#fabricanteId').val());
             //cb ends
         });
 
 
-        function displayItem(clienteId) {
+        function displayItem(fabricanteId) {
             //pegar o item
             $.ajax({
-                url: '/api/Cliente/' + clienteId,
+                url: '/api/Fabricante/' + fabricanteId,
                 method: 'GET'
             }).done(function (data) {
                 console.log(data.descricao);
-                $("#cliente").text(data.descricao);
-                $("#clienteId").val(data.id);
+                $("#fabricante").text(data.descricao);
+                $("#fabricanteId").val(data.id);
             }).fail(function (errorMsg) {
                 console.log(errorMsg);
                 alert('Failed to save.');
@@ -125,19 +139,19 @@ $('#btnDeleteConfirmed').click(function () {
             //
         }
 
-        function deleteItem(clienteId) {
-            console.log(clienteId);
+        function deleteItem(fabricanteId) {
+            console.log(fabricanteId);
 
 
 
             $.ajax({
-                url: '/Cliente/DeleteConfirmed',
+                url: '/Fabricante/DeleteConfirmed',
                 type: 'POST',
                 headers: {
                     '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
                 },
                 data: {
-                    Id: clienteId
+                    Id: fabricanteId
                 },
                 dataType: "json",
                 success: function (response)

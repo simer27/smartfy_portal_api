@@ -99,7 +99,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             }
 
             Random randNum = new Random();
-            vm.NumeroSerie = randNum.Next().ToString();
+            vm.NumeroSerie ="SFY" + randNum.Next().ToString();
 
             //if (!string.IsNullOrEmpty(vm.NumeroSerie))
             //{

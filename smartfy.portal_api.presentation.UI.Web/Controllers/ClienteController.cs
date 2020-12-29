@@ -43,17 +43,16 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             LoadViewBags();
 
             //Filters - BEGINS
-            var clientesFiltrados = Db.Clientes.Where(r => !r.Excluded
-            && !string.IsNullOrEmpty(vm.FilterAddress) ? vm.FilterAddress.ToUpper() == r.Address.ToUpper() : true
-            && !string.IsNullOrEmpty(vm.FilterCPF) ? vm.FilterCPF == r.CPF : true
-            && !string.IsNullOrEmpty(vm.FilterName) ? vm.FilterName.ToUpper() == r.Name.ToUpper() : true
-            );
+            var clientesFiltrados = Db.Clientes.Where(r => !r.Excluded);
 
             //if (!string.IsNullOrEmpty(vm.FilterDescricao))
-            //    clientesFiltrados = clientesFiltrados.Where(c => c.Address.ToUpper().Contains(vm..ToUpper()));
-            ////produtosFiltrados = produtosFiltrados.Where(r => );
-            //clientesFiltrados = clientesFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
-            //clientesFiltrados = clientesFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
+            //    produtosFiltrados = produtosFiltrados.Where(c => c.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()));
+            //produtosFiltrados = produtosFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
+            //produtosFiltrados = produtosFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
+
+            clientesFiltrados = clientesFiltrados.Where(c => c.Address.ToUpper().Contains(vm.FilterAddress.ToUpper()));
+            clientesFiltrados = clientesFiltrados.Where(c => c.CPF.ToUpper().Contains(vm.FilterCPF.ToUpper()));
+            clientesFiltrados = clientesFiltrados.Where(c => c.Name.ToUpper().Contains(vm.FilterName.ToUpper()));
 
             //Filters - ENDS
             //filtro parou aqui preciso verificar (ocorreu um erro)
