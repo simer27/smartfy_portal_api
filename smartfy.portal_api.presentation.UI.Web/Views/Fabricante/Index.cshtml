@@ -60,28 +60,28 @@
 </fieldset>
 
 <fieldset class="fieldset">
-    <legend>Fabricantes</legend>>
+    <legend>Fabricante</legend>
     <div class="row-fluid">
         <div class="span6">
             @Html.AntiForgeryToken()
             <table id="dt" class="dt table table-striped table-bordered"
-            style="width:100%"
-            data-url="/Fabricante/List"
-            data-cols="codigo,nome,cnpj,telefone,endereco"
-            data-what="Fabricantes KeepTrack"
-            data-delete-url="/Fabricante/Delete"
-            data-create-url="/Fabricante/Create"
-            data-edit-url="/Fabricante/Edit"
-            <thead>
-            <tr>
-            <th>Cod.</th>
-            <th>Nome</th>
-            <th>CNPJ</th>
-            <th>Tel.</th>
-            <th>End.</th>
-            <th data-orderable="false" class="w-110"></th>
-            </tr>
-            </thead>
+                   style="width:100%"
+                   data-url="/Fabricante/List"
+                   data-cols="codigo,nome,cnpj,telefone,endereco"
+                   data-what="Fabricante KeepTrack"
+                   data-delete-url="/Fabricante/Delete"
+                   data-create-url="/Fabricante/Create"
+                   data-edit-url="/Fabricante/Edit">
+                <thead>
+                    <tr>
+                        <th>Cod.</th>
+                        <th>Nome</th>
+                        <th>CNPJ</th>
+                        <th>Telefone</th>
+                        <th>Endereço</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
             </table>
         </div>
     </div>

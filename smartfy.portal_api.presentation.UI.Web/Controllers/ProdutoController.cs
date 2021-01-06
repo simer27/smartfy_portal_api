@@ -52,7 +52,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
 
             if (!string.IsNullOrEmpty(vm.FilterDescricao))
                 produtosFiltrados = produtosFiltrados.Where(c => c.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()));
-            //produtosFiltrados = produtosFiltrados.Where(r => );
+            produtosFiltrados = produtosFiltrados.Where(c => c.Codigo.ToUpper().Contains(vm.FilterCodigo.ToUpper()));
             produtosFiltrados = produtosFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
             produtosFiltrados = produtosFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
 

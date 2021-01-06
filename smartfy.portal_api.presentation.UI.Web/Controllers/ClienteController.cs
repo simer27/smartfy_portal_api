@@ -45,11 +45,6 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             //Filters - BEGINS
             var clientesFiltrados = Db.Clientes.Where(r => !r.Excluded);
 
-            //if (!string.IsNullOrEmpty(vm.FilterDescricao))
-            //    produtosFiltrados = produtosFiltrados.Where(c => c.Descricao.ToUpper().Contains(vm.FilterDescricao.ToUpper()));
-            //produtosFiltrados = produtosFiltrados.Where(r => vm.FilterDtCadastroAte.IsValid() ? r.CreationDate.IsBetween(vm.FilterDtCadastroDe, vm.FilterDtCadastroAte) : true);
-            //produtosFiltrados = produtosFiltrados.Where(r => vm.FilterStatus != EStatus.None ? r.Status.Equals(vm.FilterStatus) : true);
-
             clientesFiltrados = clientesFiltrados.Where(c => c.Address.ToUpper().Contains(vm.FilterAddress.ToUpper()));
             clientesFiltrados = clientesFiltrados.Where(c => c.CPF.ToUpper().Contains(vm.FilterCPF.ToUpper()));
             clientesFiltrados = clientesFiltrados.Where(c => c.Name.ToUpper().Contains(vm.FilterName.ToUpper()));
@@ -63,7 +58,7 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
         [HttpPost]
         public async Task<JsonResult> List(GridDataRequest request = null)
         {
-            return Json(await Db.Clientes
+            return Json(await Db.Clientes.Where(r => r.Excluded != true)
                 .Select(r => new
                 {
                     DT_RowId = r.Id,
