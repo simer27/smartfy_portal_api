@@ -75,7 +75,8 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
                     status = r.Status == EStatus.Inativo ? "Inativo" : "Ativo",
-                    numeroserie = r.NumeroSerie
+                    numeroserie = r.NumeroSerie,
+                    preco = r.Preco
                 }).ToDataSourceAsync(request));
         }
         #endregion

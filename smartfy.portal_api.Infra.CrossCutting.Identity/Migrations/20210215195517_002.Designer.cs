@@ -10,8 +10,8 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201207193716_002_Felipe")]
-    partial class _002_Felipe
+    [Migration("20210215195517_002")]
+    partial class _002
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,8 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<string>("CPF");
+                    b.Property<string>("CPF")
+                        .HasMaxLength(11);
 
                     b.Property<DateTime>("CreationDate");
 
@@ -228,6 +229,56 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Despacho");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<double>("PrecoTotalEstoque");
+
+                    b.Property<double>("PrecoTotalReservado");
+
+                    b.Property<Guid>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.Property<int>("Reservado");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoque");
+                });
+
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Fabricante", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CNPJ");
+
+                    b.Property<string>("Codigo");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Endereco");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Telefone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fabricante");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Produto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -244,6 +295,10 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<bool>("Excluded");
 
                     b.Property<bool>("IsPerecivel");
+
+                    b.Property<string>("NumeroSerie");
+
+                    b.Property<double>("Preco");
 
                     b.Property<int>("Status");
 
@@ -294,6 +349,14 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasOne("smartfy.portal_api.Infra.CrossCutting.Identity.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.HasOne("smartfy.portal_api.domain.Entities.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

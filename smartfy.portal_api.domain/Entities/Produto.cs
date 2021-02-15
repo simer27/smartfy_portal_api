@@ -9,6 +9,7 @@ namespace smartfy.portal_api.domain.Entities
     {
         public string Codigo { get; set; }
         public string Descricao { get; set; }
+        public double Preco { get; set; }
         public DateTime DtVencimento { get; set; }
         public bool IsPerecivel { get; set; }
         public string NumeroSerie { get; set; }

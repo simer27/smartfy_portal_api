@@ -10,8 +10,8 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20201207174709_001_Felipe")]
-    partial class _001_Felipe
+    [Migration("20210215190806_001")]
+    partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -189,7 +189,8 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<string>("Address");
 
-                    b.Property<string>("CPF");
+                    b.Property<string>("CPF")
+                        .HasMaxLength(11);
 
                     b.Property<DateTime>("CreationDate");
 
@@ -228,6 +229,30 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Despacho");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Fabricante", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("CNPJ");
+
+                    b.Property<string>("Codigo");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<string>("Endereco");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<string>("Telefone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Fabricante");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Produto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -242,6 +267,12 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<DateTime>("DtVencimento");
 
                     b.Property<bool>("Excluded");
+
+                    b.Property<bool>("IsPerecivel");
+
+                    b.Property<string>("NumeroSerie");
+
+                    b.Property<int>("Status");
 
                     b.HasKey("Id");
 

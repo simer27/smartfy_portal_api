@@ -12,6 +12,10 @@
     <None Remove="Views\FichaIndividual\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Compile Remove="Controllers\FabricanteController - Copy.cs" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="8.0.0" />

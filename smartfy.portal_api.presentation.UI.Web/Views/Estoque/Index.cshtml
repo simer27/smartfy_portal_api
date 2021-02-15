@@ -1,0 +1,28 @@
+﻿<fieldset class="fieldset">
+    <legend>Estoque da KeepTrack</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Estoque/List"
+                   data-cols="descricao,quantidade,reservado,precototalestoque,precototalreservado"
+                   data-what="Estoque KeepTrack"
+                   data-delete-url="/Estoque/Delete"
+                   data-create-url="/Estoque/Create"
+                   data-edit-url="/Estoque/Edit">
+                <thead>
+                    <tr>
+                        <th>Descrição</th>
+                        <th>Quantidade</th>
+                        <th>Rervado</th>
+                        <th>Preço Estoque</th>
+                        <th>Preço Rervado</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+<br />

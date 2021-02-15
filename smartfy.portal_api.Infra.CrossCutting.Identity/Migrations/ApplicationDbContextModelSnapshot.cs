@@ -227,6 +227,32 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Despacho");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<double>("PrecoTotalEstoque");
+
+                    b.Property<double>("PrecoTotalReservado");
+
+                    b.Property<Guid>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.Property<int>("Reservado");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoque");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Fabricante", b =>
                 {
                     b.Property<Guid>("Id")
@@ -269,6 +295,8 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<bool>("IsPerecivel");
 
                     b.Property<string>("NumeroSerie");
+
+                    b.Property<double>("Preco");
 
                     b.Property<int>("Status");
 
@@ -319,6 +347,14 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasOne("smartfy.portal_api.Infra.CrossCutting.Identity.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.HasOne("smartfy.portal_api.domain.Entities.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
