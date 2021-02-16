@@ -76,7 +76,8 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
                     status = r.Status == EStatus.Inativo ? "Inativo" : "Ativo",
                     numeroserie = r.NumeroSerie,
-                    preco = r.Preco
+                    preco = r.Preco,
+                    observacao = r.Observacao
                 }).ToDataSourceAsync(request));
         }
         #endregion

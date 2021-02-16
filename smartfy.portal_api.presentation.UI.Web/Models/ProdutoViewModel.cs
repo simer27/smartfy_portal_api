@@ -19,5 +19,6 @@ namespace smartfy.portal_api.presentation.UI.Web.Models
         public DateTime FilterDtCadastroDe { get; set; }
         public DateTime FilterDtCadastroAte { get; set; }
         public EStatus FilterStatus { get; set; }
+        public string FilterObservacao { get; set; }
     }
 }

@@ -20,7 +20,7 @@
                                     <input asp-for="FilterCodigo" class="form-control form-control-sm" />
                                 </div>
                             </div>
-                            <div class="col-5">
+                            <div class="col-3">
                                 <div class="form-group">
                                     <label class="control-label">Descricao</label>
                                     <input asp-for="FilterDescricao" id="FilterDescricao" name="FilterDescricao" class="form-control form-control-sm" />
@@ -45,6 +45,12 @@
                                         <option selected="selected" value="0">Selecione</option>
 
                                     </select>
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Observacao</label>
+                                    <input asp-for="FilterObservacao" id="FilterObservacao" name="FilterObservacao" class="form-control form-control-sm" />
                                 </div>
                             </div>
                         </div>
@@ -73,7 +79,7 @@
             <table id="dt" class="dt table table-striped table-bordered"
                    style="width:100%"
                    data-url="/Produto/List"
-                   data-cols="codigo,descricao,dtvencimento,isperecivel,status,numeroserie,preco"
+                   data-cols="codigo,descricao,dtvencimento,isperecivel,status,numeroserie,preco,observacao"
                    data-what="Produtos KeepTrack"
                    data-delete-url="/Produto/Delete"
                    data-create-url="/Produto/Create"
@@ -87,6 +93,7 @@
                         <th>Status</th>
                         <th>Número de Série</th>
                         <th>Preço</th>
+                        <th>Observação</th>
                         <th data-orderable="false" class="w-110"></th>
                     </tr>
                 </thead>
