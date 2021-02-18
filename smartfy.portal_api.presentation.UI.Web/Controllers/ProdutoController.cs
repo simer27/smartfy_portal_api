@@ -72,12 +72,14 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     DT_RowId = r.Id,
                     codigo = r.Codigo,
                     descricao = r.Descricao,
+                    dtfabricacao = r.DtFabricacao.ToString("dd/MM/yyyy"),
                     dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
                     status = r.Status == EStatus.Inativo ? "Inativo" : "Ativo",
                     numeroserie = r.NumeroSerie,
                     preco = r.Preco,
-                    observacao = r.Observacao
+                    observacao = r.Observacao,
+                    
                 }).ToDataSourceAsync(request));
         }
         #endregion

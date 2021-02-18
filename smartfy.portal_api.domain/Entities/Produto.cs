@@ -16,17 +16,20 @@ namespace smartfy.portal_api.domain.Entities
         public string Observacao { get; set; }
         public EStatus Status { get; set; }
 
+        public DateTime DtFabricacao { get; set; }
+
 
         public Produto() { }
 
 
-        public Produto(string codigo, string descricao, DateTime dtVencimento, bool isperecivel, string observacao)
+        public Produto(string codigo, string descricao, DateTime dtVencimento, bool isperecivel, string observacao, DateTime dtfabricacao)
         {
             Codigo = codigo;
             Descricao = descricao;
             DtVencimento = dtVencimento;
             IsPerecivel = isperecivel;
             Observacao = observacao;
+            DtFabricacao = dtfabricacao;
         }
 
 

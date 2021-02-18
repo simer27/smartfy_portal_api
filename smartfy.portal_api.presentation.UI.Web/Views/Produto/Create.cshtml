@@ -32,6 +32,13 @@
                         </div>
                         <div class="col-3">
                             <div class="form-group">
+                                <label asp-for="DtFabricacao" class="control-label">Data de Fabricação</label>
+                                <input asp-for="DtFabricacao" type="date" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="DtFabricacao" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
                                 <label asp-for="DtVencimento" class="control-label">Data de Vencimento</label>
                                 <input asp-for="DtVencimento" type="date" class="form-control form-control-sm" />
                             </div>
@@ -87,6 +94,8 @@
                             </div>
                             <span asp-validation-for="Observacao" class="text-danger"></span>
                         </div>
+ 
+
 
                     </div>
                 </div>

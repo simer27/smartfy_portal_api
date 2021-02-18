@@ -18,12 +18,12 @@
                     <div class="row">
                         <div class="col-3">
                             <div class="form-group">
-                                <label asp-for="Produto.Descricao" class="control-label">Descrição</label>
-                                <select asp-for="Produto.Descricao" asp-items="@ViewBag.DescricaoProduto" class="form-control form-control-sm">
+                                <label asp-for="Produto" class="control-label">Descrição</label>
+                                <select asp-for="Produto" asp-items="@ViewBag.DescricaoProduto" class="form-control form-control-sm">
                                     <option selected="selected" value="0">Selecione</option>
                                 </select>
                             </div>
-                            <span asp-validation-for="Produto.Descricao" class="text-danger"></span>
+                            <span asp-validation-for="Produto" class="text-danger"></span>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
