@@ -10,8 +10,8 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210217163116_004")]
-    partial class _004
+    [Migration("20210224145105_001")]
+    partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -277,6 +277,34 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Fabricante");
+                });
+
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Funcionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("DtAdmissao");
+
+                    b.Property<DateTime>("DtDemissao");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<string>("Funcao");
+
+                    b.Property<int>("Id_Func");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("Turno");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionario");
                 });
 
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Produto", b =>

@@ -277,6 +277,38 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Fabricante");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Funcionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Beneficio");
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("DtAdmissao");
+
+                    b.Property<DateTime>("DtDemissao");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<string>("Funcao");
+
+                    b.Property<int>("Id_Func");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<double>("Salario");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("Turno");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionario");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Produto", b =>
                 {
                     b.Property<Guid>("Id")

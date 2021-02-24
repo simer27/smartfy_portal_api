@@ -103,6 +103,26 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Funcionario",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    Excluded = table.Column<bool>(nullable: false),
+                    Id_Func = table.Column<int>(nullable: false),
+                    Nome = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    Funcao = table.Column<string>(nullable: true),
+                    DtAdmissao = table.Column<DateTime>(nullable: false),
+                    DtDemissao = table.Column<DateTime>(nullable: false),
+                    Turno = table.Column<int>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Funcionario", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Produto",
                 columns: table => new
                 {
@@ -111,10 +131,13 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     Excluded = table.Column<bool>(nullable: false),
                     Codigo = table.Column<string>(nullable: true),
                     Descricao = table.Column<string>(nullable: true),
+                    Preco = table.Column<double>(nullable: false),
                     DtVencimento = table.Column<DateTime>(nullable: false),
                     IsPerecivel = table.Column<bool>(nullable: false),
                     NumeroSerie = table.Column<string>(nullable: true),
-                    Status = table.Column<int>(nullable: false)
+                    Observacao = table.Column<string>(nullable: true),
+                    Status = table.Column<int>(nullable: false),
+                    DtFabricacao = table.Column<DateTime>(nullable: false)
                 },
                 constraints: table =>
                 {
@@ -227,6 +250,30 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Estoque",
+                columns: table => new
+                {
+                    Id = table.Column<Guid>(nullable: false),
+                    CreationDate = table.Column<DateTime>(nullable: false),
+                    Excluded = table.Column<bool>(nullable: false),
+                    Quantidade = table.Column<int>(nullable: false),
+                    Reservado = table.Column<int>(nullable: false),
+                    PrecoTotalEstoque = table.Column<double>(nullable: false),
+                    PrecoTotalReservado = table.Column<double>(nullable: false),
+                    ProdutoId = table.Column<Guid>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Estoque", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Estoque_Produto_ProdutoId",
+                        column: x => x.ProdutoId,
+                        principalTable: "Produto",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetRoleClaims_RoleId",
                 table: "AspNetRoleClaims",
@@ -263,6 +310,11 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
                 unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Estoque_ProdutoId",
+                table: "Estoque",
+                column: "ProdutoId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -289,16 +341,22 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                 name: "Despacho");
 
             migrationBuilder.DropTable(
+                name: "Estoque");
+
+            migrationBuilder.DropTable(
                 name: "Fabricante");
 
             migrationBuilder.DropTable(
-                name: "Produto");
+                name: "Funcionario");
 
             migrationBuilder.DropTable(
                 name: "AspNetRoles");
 
             migrationBuilder.DropTable(
                 name: "AspNetUsers");
+
+            migrationBuilder.DropTable(
+                name: "Produto");
         }
     }
 }

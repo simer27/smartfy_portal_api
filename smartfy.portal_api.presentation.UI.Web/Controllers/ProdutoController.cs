@@ -105,10 +105,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             Random randNum = new Random();
             vm.NumeroSerie ="SFY" + randNum.Next().ToString();
 
-            //if (!string.IsNullOrEmpty(vm.NumeroSerie))
-            //{
-            //    return View(vm);
-            //}
+            if (vm.DtFabricacao > vm.DtVencimento)
+            {
+                ModelState.AddModelError("DtVencimento", "Data de Vencimento não pode ser anterior a data de fabricação.");
+                return View(vm);
+            }
 
             Db.Produtos.Add(vm);
             Db.SaveChanges();

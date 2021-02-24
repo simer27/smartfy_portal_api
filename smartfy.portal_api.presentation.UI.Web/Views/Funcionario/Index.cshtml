@@ -1,0 +1,181 @@
+﻿@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery antiforgery
+@model FuncionarioViewModel
+@{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
+
+<fieldset class="fieldset">
+    <form asp-action="Pesquisa" id="myform">
+
+        <div class="row">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="col-12">
+                <div class="card mt-2">
+                    <div class="card-body">
+                        <div class="card-title"><h6>Filtros</h6></div>
+                        <div class="row">
+                            @*<div class="col-1">
+            <div class="form-group">
+                <label class="control-label">Codigo</label>
+                <input asp-for="FilterCodigo" class="form-control form-control-sm" />
+            </div>
+        </div>*@
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label">Nome</label>
+                                    <input asp-for="FilterNome" id="FilterNome" name="FilterNome" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Status</label>
+                                    <input asp-for="FilterStatus" id="FilterStatus" name="FilterStatus" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Funcao</label>
+                                    <input asp-for="FilterFuncao" id="FilterFuncao" name="FilterFuncao" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Turno</label>
+                                    <input asp-for="FilterTurno" id="FilterTurno" name="FilterTurno" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-3">
+                                <div class="form-group">
+                                    <label class="control-label"></label>
+                                    <input type="submit" value="Pesquisar" class="btn btn-success w-150" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
+</fieldset>
+
+<fieldset class="fieldset">
+    <legend>Funcionario</legend>
+    <div class="row-fluid">
+        <div class="span6">
+            @Html.AntiForgeryToken()
+            <table id="dt" class="dt table table-striped table-bordered"
+                   style="width:100%"
+                   data-url="/Funcionario/List"
+                   data-cols="id_func,nome,status,funcao,dtadmissao,dtdemissao,turno,salario,beneficio"
+                   data-what="Funcionario KeepTrack"
+                   data-delete-url="/Funcionario/Delete"
+                   data-create-url="/Funcionario/Create"
+                   data-edit-url="/Funcionario/Edit">
+                <thead>
+                    <tr>
+                        <th>Id.</th>
+                        <th>Nome</th>
+                        <th>Status</th>
+                        <th>Função</th>
+                        <th>Data Admissão</th>
+                        <th>Data Demissão</th>
+                        <th>Turno</th>
+                        <th>Salário</th>
+                        <th>Beneficio</th>
+                        <th data-orderable="false" class="w-110"></th>
+                    </tr>
+                </thead>
+            </table>
+        </div>
+    </div>
+</fieldset>
+
+<br />
+
+
+<!-- Modal -->
+<div class="modal fade" id="excludeproduct" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Funcionario</h5>>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p>Você esta prestes a deletar <b id="funcionario"></b>, essa ação não poderá mais ser desfeita.</p>
+                <input type="hidden" id="funcionarioId" />
+            </div>
+            <div class="modal-footer">
+                <button id="btnCloseModal" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+                <a id="btnDeleteConfirmed" href="" type="submit" class="btn btn-danger">Excluir</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- PUSH JS likes-->
+@section Scripts {
+    <script>
+$('#btnDeleteConfirmed').click(function () {
+            //cb starts
+            deleteItem($('#funcionarioId').val());
+            //cb ends
+        });
+
+
+        function displayItem(funcionarioId) {
+            //pegar o item
+            $.ajax({
+                url: '/api/Funcionario/' + funcionarioId,
+                method: 'GET'
+            }).done(function (data) {
+                console.log(data.descricao);
+                $("#funcionarioId").text(data.descricao);
+                $("#funcionarioId").val(data.id);
+            }).fail(function (errorMsg) {
+                console.log(errorMsg);
+                alert('Failed to save.');
+            });
+            //
+        }
+
+        function deleteItem(funcionarioId) {
+            console.log(funcionarioId);
+
+
+
+            $.ajax({
+                url: '/Funcionario/DeleteConfirmed',
+                type: 'POST',
+                headers: {
+                    '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
+                },
+                data: {
+                    Id: funcionarioId
+                },
+                dataType: "json",
+                success: function (response)
+                {
+                    @*$("excludeproduct").hide();
+                    location.reload();*@
+
+                },
+                error: function (xhr) {
+                }
+            });
+
+        }
+
+        function rowCallBack(row, data) {
+
+            $(row).find('#btn-remove').unbind('click').click(function () {
+                displayItem(data.dT_RowId);
+            });
+        }</script>
+
+
+}

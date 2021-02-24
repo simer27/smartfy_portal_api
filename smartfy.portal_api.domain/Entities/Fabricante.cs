@@ -13,7 +13,9 @@ namespace smartfy.portal_api.domain.Entities
         public string CNPJ { get; set; }
         public string Endereco { get; set; }
         public string Telefone { get; set; }
+
         public Fabricante() { }
+
         public Fabricante(String codigo, string nome, string cnpj, string endereco, string telefone)
         {
             Codigo = codigo;
