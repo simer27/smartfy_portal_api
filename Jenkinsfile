@@ -7,5 +7,11 @@ pipeline {
                 echo "Hello World!"
             }
         }
+		stage('Build') {
+            steps {
+				bat 'set'
+                echo "Hello World!"
+            }
+        }
     }
 }
