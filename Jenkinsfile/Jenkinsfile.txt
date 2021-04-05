@@ -1,7 +1,5 @@
-pipeline{
-		stage('Stage 1'){
-			steps{
-				echo 'Hello world!'
-			}
+node {
+	stage('Git Checkout'){
+		git branch: 'master', url:'https://github.com/elielamaral/sfywebadrian.git'
+	}
 }
-}	
