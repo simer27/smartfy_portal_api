@@ -1,5 +1,22 @@
-node {
-	stage('Git Checkout'){
-		git branch: 'master', url:'https://github.com/elielamaral/sfywebadrian.git'
-	}
+Jenkinsfile (pipeline declarativo)
+pipeline {
+    agent any
+
+    stages {
+        stage('Build') {
+            steps {
+                echo 'Building..'
+            }
+        }
+        stage('Test') {
+            steps {
+                echo 'Testing..'
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo 'Deploying....'
+            }
+        }
+    }
 }
