@@ -1,7 +1,8 @@
 pipeline {
     agent { label 'master' }
     stages {
-        stage('build') {
+        stage('Checkout') {
+			checkout scm
             steps {
                 echo "Hello World!"
             }
