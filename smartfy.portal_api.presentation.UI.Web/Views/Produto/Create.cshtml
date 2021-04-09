@@ -9,9 +9,9 @@
 <form asp-action="Create" id="myform">
 
     <div class="row">
-        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+       <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
-        <div class="col-12">
+          <div class="col-12">
             <div class="card mt-2">
                 <div class="card-body">
                     <div class="card-title"><h6>Informações Básicas</h6></div>
@@ -29,6 +29,13 @@
                                 <input asp-for="Descricao" class="form-control form-control-sm" />
                             </div>
                             <span asp-validation-for="Descricao" class="text-danger"></span>
+                        </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="DtFabricacao" class="control-label">Data de Fabricação</label>
+                                <input asp-for="DtFabricacao" type="date" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="DtFabricacao" class="text-danger"></span>
                         </div>
                         <div class="col-3">
                             <div class="form-group">
@@ -80,6 +87,16 @@
                             </div>
                             <span asp-validation-for="Preco" class="text-danger"></span>
                         </div>
+                        <div class="col-3">
+                            <div class="form-group">
+                                <label asp-for="Observacao" class="control-label">Observacao</label>
+                                <input asp-for="Observacao" class="form-control form-control-sm" />
+                            </div>
+                            <span asp-validation-for="Observacao" class="text-danger"></span>
+                        </div>
+ 
+
+
                     </div>
                 </div>
                 <div class="col-4 mt-3">
@@ -88,5 +105,6 @@
                 </div>
 
             </div>
-
+        </div>
+      </div>
 </form>

@@ -1,6 +1,6 @@
 ﻿@using Microsoft.AspNetCore.Antiforgery
 @inject IAntiforgery antiforgery
-@model ProdutoViewModel
+@model FuncionarioViewModel
 @{ var tokenSet = antiforgery.GetAndStoreTokens(Context); }
 
 <fieldset class="fieldset">
@@ -14,44 +14,38 @@
                     <div class="card-body">
                         <div class="card-title"><h6>Filtros</h6></div>
                         <div class="row">
-                            <div class="col-1">
+                            @*<div class="col-1">
+            <div class="form-group">
+                <label class="control-label">Codigo</label>
+                <input asp-for="FilterCodigo" class="form-control form-control-sm" />
+            </div>
+        </div>*@
+                            <div class="col-3">
                                 <div class="form-group">
-                                    <label class="control-label">Codigo</label>
-                                    <input asp-for="FilterCodigo" class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label class="control-label">Descricao</label>
-                                    <input asp-for="FilterDescricao" id="FilterDescricao" name="FilterDescricao" class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label class="control-label">Dt. Vencimento Início</label>
-                                    <input asp-for="FilterDtCadastroDe" type="date" class="form-control form-control-sm" />
-                                </div>
-                            </div>
-                            <div class="col-2">
-                                <div class="form-group">
-                                    <label class="control-label">Dt. Vencimento Fim</label>
-                                    <input asp-for="FilterDtCadastroAte" type="date" class="form-control form-control-sm" />
+                                    <label class="control-label">Nome</label>
+                                    <input asp-for="FilterNome" id="FilterNome" name="FilterNome" class="form-control form-control-sm" />
                                 </div>
                             </div>
                             <div class="col-2">
                                 <div class="form-group">
                                     <label class="control-label">Status</label>
-                                    <select asp-items="@ViewBag.Status" asp-for="FilterStatus" class="form-control form-control-sm">
-                                        <option selected="selected" value="0">Selecione</option>
-
-                                    </select>
+                                    <input asp-for="FilterStatus" id="FilterStatus" name="FilterStatus" class="form-control form-control-sm" />
                                 </div>
                             </div>
-                           
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Funcao</label>
+                                    <input asp-for="FilterFuncao" id="FilterFuncao" name="FilterFuncao" class="form-control form-control-sm" />
+                                </div>
+                            </div>
+                            <div class="col-2">
+                                <div class="form-group">
+                                    <label class="control-label">Turno</label>
+                                    <input asp-for="FilterTurno" id="FilterTurno" name="FilterTurno" class="form-control form-control-sm" />
+                                </div>
+                            </div>
                         </div>
-                       
                         <div class="row">
-
                             <div class="col-3">
                                 <div class="form-group">
                                     <label class="control-label"></label>
@@ -61,36 +55,34 @@
                         </div>
                     </div>
                 </div>
-
             </div>
-
     </form>
 </fieldset>
 
 <fieldset class="fieldset">
-    <legend>Produtos</legend>
+    <legend>Funcionario</legend>
     <div class="row-fluid">
         <div class="span6">
             @Html.AntiForgeryToken()
             <table id="dt" class="dt table table-striped table-bordered"
                    style="width:100%"
-                   data-url="/Produto/List"
-                   data-cols="codigo,descricao,dtfabricacao,dtvencimento,isperecivel,status,numeroserie,preco,observacao"
-                   data-what="Produtos KeepTrack"
-                   data-delete-url="/Produto/Delete"
-                   data-create-url="/Produto/Create"
-                   data-edit-url="/Produto/Edit">
+                   data-url="/Funcionario/List"
+                   data-cols="id_func,nome,status,funcao,dtadmissao,dtdemissao,turno,salario,beneficio"
+                   data-what="Funcionario KeepTrack"
+                   data-delete-url="/Funcionario/Delete"
+                   data-create-url="/Funcionario/Create"
+                   data-edit-url="/Funcionario/Edit">
                 <thead>
                     <tr>
-                        <th>Cod.</th>
-                        <th>Descricao</th>
-                        <th>Data de Fabricação</th>
-                        <th>Data de Vencimento</th>
-                        <th>Perecível</th>
+                        <th>Id.</th>
+                        <th>Nome</th>
                         <th>Status</th>
-                        <th>Número de Série</th>
-                        <th>Preço</th>
-                        <th>Observação</th>
+                        <th>Função</th>
+                        <th>Data Admissão</th>
+                        <th>Data Demissão</th>
+                        <th>Turno</th>
+                        <th>Salário</th>
+                        <th>Beneficio</th>
                         <th data-orderable="false" class="w-110"></th>
                     </tr>
                 </thead>
@@ -107,15 +99,15 @@
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Excluir Produto</h5>
+                <h5 class="modal-title" id="exampleModalLabel">Excluir Funcionario</h5>>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
 
-                <p>Você esta prestes a deletar <b id="produto"></b>, essa ação não poderá mais ser desfeita.</p>
-                <input type="hidden" id="produtoId" />
+                <p>Você esta prestes a deletar <b id="funcionario"></b>, essa ação não poderá mais ser desfeita.</p>
+                <input type="hidden" id="funcionarioId" />
             </div>
             <div class="modal-footer">
                 <button id="btnCloseModal" type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
@@ -130,20 +122,20 @@
     <script>
 $('#btnDeleteConfirmed').click(function () {
             //cb starts
-            deleteItem($('#produtoId').val());
+            deleteItem($('#funcionarioId').val());
             //cb ends
         });
 
 
-        function displayItem(produtoId) {
+        function displayItem(funcionarioId) {
             //pegar o item
             $.ajax({
-                url: '/api/Produto/' + produtoId,
+                url: '/api/Funcionario/' + funcionarioId,
                 method: 'GET'
             }).done(function (data) {
                 console.log(data.descricao);
-                $("#produto").text(data.descricao);
-                $("#produtoId").val(data.id);
+                $("#funcionarioId").text(data.descricao);
+                $("#funcionarioId").val(data.id);
             }).fail(function (errorMsg) {
                 console.log(errorMsg);
                 alert('Failed to save.');
@@ -151,19 +143,19 @@ $('#btnDeleteConfirmed').click(function () {
             //
         }
 
-        function deleteItem(produtoId) {
-            console.log(produtoId);
+        function deleteItem(funcionarioId) {
+            console.log(funcionarioId);
 
 
 
             $.ajax({
-                url: '/Produto/DeleteConfirmed',
+                url: '/Funcionario/DeleteConfirmed',
                 type: 'POST',
                 headers: {
                     '@tokenSet.HeaderName' : '@tokenSet.RequestToken'
                 },
                 data: {
-                    Id: produtoId
+                    Id: funcionarioId
                 },
                 dataType: "json",
                 success: function (response)

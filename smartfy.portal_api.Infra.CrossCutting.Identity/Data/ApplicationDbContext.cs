@@ -20,6 +20,10 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Data
         public DbSet<Despacho> Despachos { get; set; }
         public DbSet<Fabricante> Fabricantes { get; set; }
         public DbSet<Estoque> Estoques { get; set; }
+        public DbSet<Funcionario> Funcionarios { get; set; }
+
+
+        //igual o de cima!
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -28,6 +32,7 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Data
             new Despacho().Configure(modelBuilder.Entity<Despacho>().ToTable("Despacho"));
             new Fabricante().Configure(modelBuilder.Entity<Fabricante>().ToTable("Fabricante"));
             new Estoque().Configure(modelBuilder.Entity<Estoque>().ToTable("Estoque"));
+            new Funcionario().Configure(modelBuilder.Entity<Funcionario>().ToTable("Funcionario"));
 
             base.OnModelCreating(modelBuilder);
         }

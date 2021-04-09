@@ -13,17 +13,23 @@ namespace smartfy.portal_api.domain.Entities
         public DateTime DtVencimento { get; set; }
         public bool IsPerecivel { get; set; }
         public string NumeroSerie { get; set; }
-
+        public string Observacao { get; set; }
         public EStatus Status { get; set; }
+
+        public DateTime DtFabricacao { get; set; }
+
 
         public Produto() { }
 
-        public Produto(string codigo, string descricao, DateTime dtVencimento, bool isperecivel)
+
+        public Produto(string codigo, string descricao, DateTime dtVencimento, bool isperecivel, string observacao, DateTime dtfabricacao)
         {
             Codigo = codigo;
             Descricao = descricao;
             DtVencimento = dtVencimento;
             IsPerecivel = isperecivel;
+            Observacao = observacao;
+            DtFabricacao = dtfabricacao;
         }
 
 

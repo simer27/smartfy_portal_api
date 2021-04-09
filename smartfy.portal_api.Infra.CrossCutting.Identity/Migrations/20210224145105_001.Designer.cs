@@ -10,7 +10,7 @@ using smartfy.portal_api.Infra.CrossCutting.Identity.Data;
 namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20210215190806_001")]
+    [Migration("20210224145105_001")]
     partial class _001
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -229,6 +229,32 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Despacho");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<double>("PrecoTotalEstoque");
+
+                    b.Property<double>("PrecoTotalReservado");
+
+                    b.Property<Guid>("ProdutoId");
+
+                    b.Property<int>("Quantidade");
+
+                    b.Property<int>("Reservado");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProdutoId");
+
+                    b.ToTable("Estoque");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Fabricante", b =>
                 {
                     b.Property<Guid>("Id")
@@ -253,6 +279,34 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.ToTable("Fabricante");
                 });
 
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Funcionario", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<DateTime>("CreationDate");
+
+                    b.Property<DateTime>("DtAdmissao");
+
+                    b.Property<DateTime>("DtDemissao");
+
+                    b.Property<bool>("Excluded");
+
+                    b.Property<string>("Funcao");
+
+                    b.Property<int>("Id_Func");
+
+                    b.Property<string>("Nome");
+
+                    b.Property<int>("Status");
+
+                    b.Property<int>("Turno");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Funcionario");
+                });
+
             modelBuilder.Entity("smartfy.portal_api.domain.Entities.Produto", b =>
                 {
                     b.Property<Guid>("Id")
@@ -264,6 +318,8 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
 
                     b.Property<string>("Descricao");
 
+                    b.Property<DateTime>("DtFabricacao");
+
                     b.Property<DateTime>("DtVencimento");
 
                     b.Property<bool>("Excluded");
@@ -271,6 +327,10 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.Property<bool>("IsPerecivel");
 
                     b.Property<string>("NumeroSerie");
+
+                    b.Property<string>("Observacao");
+
+                    b.Property<double>("Preco");
 
                     b.Property<int>("Status");
 
@@ -321,6 +381,14 @@ namespace smartfy.portal_api.Infra.CrossCutting.Identity.Migrations
                     b.HasOne("smartfy.portal_api.Infra.CrossCutting.Identity.Entities.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("smartfy.portal_api.domain.Entities.Estoque", b =>
+                {
+                    b.HasOne("smartfy.portal_api.domain.Entities.Produto", "Produto")
+                        .WithMany()
+                        .HasForeignKey("ProdutoId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

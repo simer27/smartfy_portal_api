@@ -72,11 +72,14 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
                     DT_RowId = r.Id,
                     codigo = r.Codigo,
                     descricao = r.Descricao,
+                    dtfabricacao = r.DtFabricacao.ToString("dd/MM/yyyy"),
                     dtvencimento = r.DtVencimento.ToString("dd/MM/yyyy"),
                     isperecivel = r.IsPerecivel ? "Sim" : "Nao",
                     status = r.Status == EStatus.Inativo ? "Inativo" : "Ativo",
                     numeroserie = r.NumeroSerie,
-                    preco = r.Preco
+                    preco = r.Preco,
+                    observacao = r.Observacao,
+                    
                 }).ToDataSourceAsync(request));
         }
         #endregion
@@ -102,10 +105,11 @@ namespace smartfy.portal_api.presentation.UI.Web.Controllers
             Random randNum = new Random();
             vm.NumeroSerie ="SFY" + randNum.Next().ToString();
 
-            //if (!string.IsNullOrEmpty(vm.NumeroSerie))
-            //{
-            //    return View(vm);
-            //}
+            if (vm.DtFabricacao > vm.DtVencimento)
+            {
+                ModelState.AddModelError("DtVencimento", "Data de Vencimento não pode ser anterior a data de fabricação.");
+                return View(vm);
+            }
 
             Db.Produtos.Add(vm);
             Db.SaveChanges();
